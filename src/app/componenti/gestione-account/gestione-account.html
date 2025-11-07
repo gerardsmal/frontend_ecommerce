@@ -1,1 +1,68 @@
-<p>gestione-account works!</p>
+<div class="container">
+    <mat-card class="example-card" appearance="outlined">
+        <mat-card-header class="header-row">
+            <mat-card-title>Elenco Account</mat-card-title>
+            <button mat-raised-button color="primary">Creazione nuovo account</button>
+        </mat-card-header>
+        <mat-divider style="margin-top: 20px;"></mat-divider>
+        <mat-card-content>
+            <div class="search-row">
+                <mat-form-field>
+                    <mat-label>Nome</mat-label>
+                    <input matInput placeholder="nome" [(ngModel)]="nome">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Cognome</mat-label>
+                    <input matInput placeholder="cognome" [(ngModel)]="cognome">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Role</mat-label>
+                    <mat-select name='role' [(ngModel)]="role">
+                        <mat-option value="Role">...</mat-option>
+                        <mat-option value="USER">User</mat-option>
+                        <mat-option value="ADMIN">Admin</mat-option>
+
+                    </mat-select>
+                </mat-form-field>
+                <span class="spacer"></span>
+                <button mat-raised-button color="primary" (click)="search()"
+                    matTooltip="ricerca con criteri">Cerca</button>
+            </div>
+            <mat-divider></mat-divider>
+            <div>
+                <table class="table table-stripped ">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Cognome</th>
+                            <th>Data creazione</th>
+                            <th>Username</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (acc of accounts; track acc.id) {
+                            <tr (click)="onSelectedAccount(acc)" class="clickable-row">
+                                <td>{{acc.nome}}</td>
+                                <td>{{acc.cognome}}</td>
+                                <td>{{acc.dataCreazione | date:'dd/MM/yyyy'}}</td>
+                                <td>{{acc.userName}}</td>
+                                 <td>{{acc.role}}</td>
+
+                            </tr>
+
+                        }
+
+                    </tbody>
+
+                </table>
+
+
+
+            </div>
+
+
+
+        </mat-card-content>
+    </mat-card>
+</div>

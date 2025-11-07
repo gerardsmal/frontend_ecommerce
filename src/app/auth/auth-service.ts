@@ -55,8 +55,7 @@ export class AuthService {
       localStorage.setItem("isAdmin", "1");
       this.grant.update(grant => ({
         ...grant,     // copia tutte le proprieta di grant
-        isAdmin: true,
-        isLogged: true
+        isAdmin: true
       }));
     }
   }
@@ -66,8 +65,7 @@ export class AuthService {
       localStorage.setItem("isAdmin", "0");
       this.grant.update(grant => ({
         ...grant,     // copia tutte le proprieta di grant
-        isAdmin: false,
-        isLogged: true
+        isAdmin: false
       }));
     }
   }

@@ -49,6 +49,8 @@ export class Register {
 
 
   }
+
+  
   back(){
     this.routing.navigate(['/login']);
   }
