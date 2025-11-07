@@ -1,0 +1,44 @@
+<mat-toolbar>
+  <button matIconButton class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Ecommerce</span>
+  
+  @if (auth.grant().userName != null){
+  <div style="flex: 1; text-align: center;">
+    <span>Ciao {{auth.grant().userName}}</span>
+  </div>
+  }
+  
+
+  <span class="example-spacer"></span>
+
+  <button matIconButton class="example-icon" aria-label="Example icon-button with share icon" (click)="login()"
+    matTooltip="Login">
+    <mat-icon>login</mat-icon>
+  </button>
+  <button matIconButton class="example-icon" aria-label="Example icon-button with share icon" (click)="logout()"
+    matTooltip="Logout">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" [opened]="auth.grant().isLogged" class="side-menu">
+    <mat-list role="list">
+      <mat-list-item routerLink="home" [routerLinkActive]="'active'">Home</mat-list-item>
+      @if (auth.grant().isLogged){
+      <mat-list-item routerLink="carello" [routerLinkActive]="'active'">Carello</mat-list-item>
+      }
+      @if (auth.grant().isAdmin){
+      <mat-list-item routerLink="account" [routerLinkActive]="'active'">Gestione Account</mat-list-item>
+      <mat-list-item routerLink="famiglia" [routerLinkActive]="'active'">Gestione Famiglia</mat-list-item>
+      <mat-list-item routerLink="artisti" [routerLinkActive]="'active'">Gestione Artisti</mat-list-item>
+      }
+
+    </mat-list>
+  </mat-drawer>
+
+  <mat-drawer-content class="main-content">
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
