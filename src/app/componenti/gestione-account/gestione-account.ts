@@ -13,55 +13,48 @@ export class GestioneAccount implements OnInit {
   nome: any = null;
   cognome: any = null;
   role: any = null;
-  accounts: any;
+  
 
   readonly dialog = inject(MatDialog);
 
-  constructor(private accountServices: AccountServices) { }
+  constructor(public accountServices: AccountServices) { }
+
+  // 👇 Leggi il segnale come getter
+  get accounts() {
+    return this.accountServices.accounts();
+  }
 
   ngOnInit(): void {
-    this.listAccount();
+    this.accountServices.list();
   }
 
   search() {
     if (this.role == 'Role') this.role = null;
     console.log(this.nome + "/" + this.cognome + "/" + this.role);
-    this.listAccount();
+    this.accountServices.list(this.nome, this.cognome, this.role);
   }
 
-  onSelectedAccount(acc:any){
+  onSelectedAccount(acc: any) {
     console.log(acc);
 
-    const enterAnimationDuration:string = '500ms';
-    const exitAnimationDuration:string = '500ms';
+    const enterAnimationDuration: string = '500ms';
+    const exitAnimationDuration: string = '500ms';
 
-    const dialogRef = this.dialog.open(Account , {
-      width:'90%',
+    const dialogRef = this.dialog.open(Account, {
+      width: '90vw',              // 👈 90% della larghezza della finestra
+      maxWidth: '1200px',         // 👈 limite massimo
       enterAnimationDuration,
       exitAnimationDuration,
-      data:{
-        account:acc
-      }
-    })
+      data: { account: acc },
+      panelClass: 'wide-dialog'
+    });
 
 
 
   }
 
- private listAccount() {
-    this.accountServices.list(this.nome, this.cognome, this.role)
-      .subscribe({
-        next: ((r: any) => {
-          this.accounts = r;
-          console.log(this.accounts)
-        }),
-        error: ((r: any) => {
-          console.log(r.error);
-        })
-      }
-      )
-  }
  
+
 
 
 }

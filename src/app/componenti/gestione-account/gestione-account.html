@@ -25,11 +25,14 @@
                     </mat-select>
                 </mat-form-field>
                 <span class="spacer"></span>
-                <button mat-raised-button color="primary" (click)="search()"
+                <button mat-raised-button color="accent" (click)="search()"
                     matTooltip="ricerca con criteri">Cerca</button>
             </div>
             <mat-divider></mat-divider>
             <div>
+                @if (accountServices.loading()){
+                    <mat-spinner></mat-spinner>
+                } @else {
                 <table class="table table-stripped ">
                     <thead>
                         <tr>
@@ -42,22 +45,22 @@
                     </thead>
                     <tbody>
                         @for (acc of accounts; track acc.id) {
-                            <tr (click)="onSelectedAccount(acc)" class="clickable-row">
-                                <td>{{acc.nome}}</td>
-                                <td>{{acc.cognome}}</td>
-                                <td>{{acc.dataCreazione | date:'dd/MM/yyyy'}}</td>
-                                <td>{{acc.userName}}</td>
-                                 <td>{{acc.role}}</td>
+                        <tr (click)="onSelectedAccount(acc)" class="clickable-row">
+                            <td>{{acc.nome}}</td>
+                            <td>{{acc.cognome}}</td>
+                            <td>{{acc.dataCreazione | date:'dd/MM/yyyy'}}</td>
+                            <td>{{acc.userName}}</td>
+                            <td>{{acc.role}}</td>
 
-                            </tr>
+                        </tr>
 
                         }
 
                     </tbody>
 
                 </table>
-
-
+                
+            }
 
             </div>
 

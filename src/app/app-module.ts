@@ -17,6 +17,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
@@ -62,7 +63,8 @@ import { Account } from './dialogs/account/account';
     MatCardModule,
     MatDividerModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
 
 
   ],
