@@ -1,1 +1,60 @@
-<p>famiglia works!</p>
+<div class="container">
+    <mat-card class="example-card" appearance="outlined">
+        <mat-card-header class="header-row">
+            <mat-card-title>Elenco Famiglie</mat-card-title>
+            <button mat-raised-button color="primary" (click)="create()">Creazione nuova famiglia</button>
+        </mat-card-header>
+        <mat-divider style="margin-top: 20px;"></mat-divider>
+        <mat-card-content>
+            <div class="search-row">
+                <mat-form-field>
+                    <mat-label>Nome famiglia</mat-label>
+                    <input matInput placeholder="famiglia" [(ngModel)]="famiglia">
+                    @if (famiglia){
+                        <button mat-icon-button matSuffix (click)="famiglia = null" matTooltip="Cancella">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    }
+ 
+                </mat-form-field>
+                <span class="spacer"></span>
+                <button mat-raised-button color="accent" (click)="search()"
+                    matTooltip="ricerca con criteri">Cerca</button>
+            </div>
+            <mat-divider></mat-divider>
+            <div>
+                <table class="table table-stripped ">
+                    <thead>
+                        <tr>
+                            <th>Descrizione</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <!--    
+                        @for (acc of accounts; track acc.id) {
+                        <tr (click)="onSelectedAccount(acc)" class="clickable-row">
+                            <td>{{acc.nome}}</td>
+                            <td>{{acc.cognome}}</td>
+                            <td>{{acc.dataCreazione | date:'dd/MM/yyyy'}}</td>
+                            <td>{{acc.userName}}</td>
+                            <td>{{acc.role}}</td>
+                            <td>{{acc.status}}</td>
+
+                        </tr>
+
+                        }
+-->
+                    </tbody>
+
+                </table>
+                
+            
+
+            </div>
+
+
+
+        </mat-card-content>
+    </mat-card>
+</div>

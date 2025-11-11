@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FamigliaServices } from '../../services/famiglia-services';
 
 @Component({
   selector: 'app-famiglia',
@@ -7,5 +8,19 @@ import { Component } from '@angular/core';
   styleUrl: './famiglia.css',
 })
 export class Famiglia {
+  famiglia:any = null;
 
+  constructor(private familySevices:FamigliaServices){}
+
+  get families(){
+    return this.familySevices.families();
+  }
+
+  
+  search(){
+
+  }
+
+  create(){
+  }
 }

@@ -1,4 +1,9 @@
-<h2 mat-dialog-title>Detaglio {{account.nome}} {{account.cognome}}</h2>
+@if (mod == 'U'){
+  <h2 mat-dialog-title>Detaglio {{account.nome}} {{account.cognome}}</h2>
+} @else {
+  <h2 mat-dialog-title>Creazione nuovo utente</h2>
+}
+
 <mat-dialog-content>
  
  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid">
@@ -66,11 +71,18 @@
     <span style="color:red">{{ msg() }}</span> 
 </div>
     <div class="button-group">
-      <button mat-raised-button color="primary" type="submit" [disabled]="!updateForm.valid">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!updateForm.valid" matTooltip="Salvare le modifiche">
         Registrazione</button>
-    <button mat-raised-button mat-dialog-close color="primary">
+      @if (mod == 'U'){
+        <button mat-raised-button color="primary" type="button" matTooltip="Cancellazione utente" (click)="remove()"
+          class="btn-danger">
+          cancelazione</button>
+
+      }  
+        <button mat-raised-button mat-dialog-close color="primary" matTooltip="chiudere la finestra">
         Chiudere</button>
    
     </div>
   </form>
 </mat-dialog-content>
+i

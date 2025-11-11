@@ -33,9 +33,17 @@ export class GestioneAccount implements OnInit {
     console.log(this.nome + "/" + this.cognome + "/" + this.role);
     this.accountServices.list(this.nome, this.cognome, this.role);
   }
+  create(){
+    this.callDialog(null,'C');
+  }
 
   onSelectedAccount(acc: any) {
     console.log(acc);
+    this.callDialog(acc, 'U');
+   
+  }
+
+  private callDialog(acc:any,modalita:any){
 
     const enterAnimationDuration: string = '500ms';
     const exitAnimationDuration: string = '500ms';
@@ -45,12 +53,9 @@ export class GestioneAccount implements OnInit {
       maxWidth: '1200px',         // 👈 limite massimo
       enterAnimationDuration,
       exitAnimationDuration,
-      data: { account: acc },
+      data: { account: acc , mod:modalita},
       panelClass: 'wide-dialog'
     });
-
-
-
   }
 
  

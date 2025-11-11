@@ -31,6 +31,8 @@ import { Home } from './componenti/home/home';
 import { Carello } from './componenti/carello/carello';
 import { GestioneAccount } from './componenti/gestione-account/gestione-account';
 import { Account } from './dialogs/account/account';
+import { ConfirmDialog } from './dialogs/confirm-dialog/confirm-dialog';
+import { Prodotti } from './componenti/prodotti/prodotti';
 
 
 @NgModule({
@@ -44,7 +46,9 @@ import { Account } from './dialogs/account/account';
     Home,
     Carello,
     GestioneAccount,
-    Account
+    Account,
+    ConfirmDialog,
+    Prodotti
   ],
   imports: [
     BrowserModule,

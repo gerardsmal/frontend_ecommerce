@@ -28,6 +28,10 @@ export class AccountServices {
       .pipe(tap(() => this.list()));          // use to update signal
   }
 
+  delete(id:any) {
+    return this.http.delete(this.config.backendURL() + "account/delete/" + id)
+      .pipe(tap(() => this.list()));          // use to update signal
+  }
 
   list(nome?: string, cognome?: string, role?: string) {  //? optional
     let params = new HttpParams();

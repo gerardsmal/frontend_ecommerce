@@ -10,6 +10,7 @@ import { authGuard } from './auth/auth-guard';
 import { authAdminGuard } from './auth/auth-admin-guard';
 import { Carello } from './componenti/carello/carello';
 import { GestioneAccount } from './componenti/gestione-account/gestione-account';
+import { Prodotti } from './componenti/prodotti/prodotti';
 
 const routes: Routes = [
   {path:'', redirectTo:'dash', pathMatch:'full'},
@@ -19,7 +20,8 @@ const routes: Routes = [
     {path:'carello' , component:Carello , canActivate:[authGuard]},
     {path:'account' , component:GestioneAccount, canActivate: [ authGuard , authAdminGuard]},
     {path:'famiglia' , component:Famiglia, canActivate: [ authGuard , authAdminGuard]},
-    {path:'artisti', component:Artisti, canActivate:[ authGuard, authAdminGuard]}
+    {path:'artisti', component:Artisti, canActivate:[ authGuard, authAdminGuard]},
+    {path:'prodotti', component:Prodotti, canActivate:[ authGuard, authAdminGuard]}
   ]},
   {path:'login', component:Login},
   {path:'register', component:Register}
