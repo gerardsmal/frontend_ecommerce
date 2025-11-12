@@ -1,0 +1,34 @@
+@if (mod == 'U'){
+<h2 mat-dialog-title>Detaglio {{famiglia.descrizione}} </h2>
+} @else {
+<h2 mat-dialog-title>Creazione nuova famiglia</h2>
+}
+<mat-dialog-content>
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid">
+        <mat-form-field appearance="fill">
+            <mat-label>Descrizione</mat-label>
+            <input matInput type="text" name="nome" formControlName="descrizione">
+        </mat-form-field>
+        
+        <div class="msg-error">
+            <span style="color:red">{{ msg() }}</span>
+        </div>
+        <div class="button-group">
+            <button mat-raised-button color="primary" type="submit" [disabled]="!updateForm.valid"
+                matTooltip="Salvare le modifiche">
+                Registrazione</button>
+            @if (mod == 'U'){
+            <button mat-raised-button color="primary" type="button" matTooltip="Cancellazione utente" (click)="remove()"
+                class="btn-danger">
+                cancelazione</button>
+
+            }
+
+
+            <button mat-raised-button mat-dialog-close color="primary" matTooltip="chiudere la finestra">
+                Chiudere</button>
+
+        </div>
+    </form>
+
+</mat-dialog-content>

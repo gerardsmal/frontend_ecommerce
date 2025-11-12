@@ -33,6 +33,8 @@ import { GestioneAccount } from './componenti/gestione-account/gestione-account'
 import { Account } from './dialogs/account/account';
 import { ConfirmDialog } from './dialogs/confirm-dialog/confirm-dialog';
 import { Prodotti } from './componenti/prodotti/prodotti';
+import { FamigliaUpdate } from './dialogs/famiglia-update/famiglia-update';
+import { ArtistUpdate } from './dialogs/artist-update/artist-update';
 
 
 @NgModule({
@@ -48,7 +50,9 @@ import { Prodotti } from './componenti/prodotti/prodotti';
     GestioneAccount,
     Account,
     ConfirmDialog,
-    Prodotti
+    Prodotti,
+    FamigliaUpdate,
+    ArtistUpdate
   ],
   imports: [
     BrowserModule,

@@ -25,26 +25,20 @@
             <div>
                 <table class="table table-stripped ">
                     <thead>
-                        <tr>
-                            <th>Descrizione</th>
+                        <tr align="center">
+                            <th >Descrizione</th>
                             
                         </tr>
                     </thead>
                     <tbody>
-                    <!--    
-                        @for (acc of accounts; track acc.id) {
-                        <tr (click)="onSelectedAccount(acc)" class="clickable-row">
-                            <td>{{acc.nome}}</td>
-                            <td>{{acc.cognome}}</td>
-                            <td>{{acc.dataCreazione | date:'dd/MM/yyyy'}}</td>
-                            <td>{{acc.userName}}</td>
-                            <td>{{acc.role}}</td>
-                            <td>{{acc.status}}</td>
-
+                        
+                        @for (fam of families; track fam.id) {
+                        <tr (click)="onSelectedFamily(fam)" class="clickable-row">
+                            <td align="center">{{fam.descrizione}}</td>
+                         
                         </tr>
 
                         }
--->
                     </tbody>
 
                 </table>

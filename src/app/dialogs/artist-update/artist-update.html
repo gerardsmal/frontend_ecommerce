@@ -1,0 +1,12 @@
+@if (mod == 'U'){
+  <h2 mat-dialog-title>Detaglio {{artist.nome}}</h2>
+} @else {
+  <h2 mat-dialog-title>Creazione nuovo utente</h2>
+}
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid">
+    <mat-form-field appearance="fill">
+      <mat-label>Nome</mat-label>
+      <input matInput type="text" name="nome" formControlName="nome">
+    </mat-form-field>
+
+  </form>  

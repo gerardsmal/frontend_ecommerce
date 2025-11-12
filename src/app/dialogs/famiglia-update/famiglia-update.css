@@ -1,0 +1,19 @@
+.button-group {
+  grid-column: span 3; /* 👈 pulsante centrato su tutta la riga */
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.msg-error {
+  grid-column: 1 / -1; /* 👈 estende da prima all'ultima colonna */
+  color: red;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.btn-danger:hover {
+  background-color: #b71c1c;
+  color: white;
+}
