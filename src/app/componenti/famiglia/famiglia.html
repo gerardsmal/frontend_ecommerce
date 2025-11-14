@@ -23,6 +23,10 @@
             </div>
             <mat-divider></mat-divider>
             <div>
+                @if (familySevices.loading()){
+                    <mat-spinner></mat-spinner>
+                } @else {
+ 
                 <table class="table table-stripped ">
                     <thead>
                         <tr align="center">
@@ -42,7 +46,7 @@
                     </tbody>
 
                 </table>
-                
+            }
             
 
             </div>

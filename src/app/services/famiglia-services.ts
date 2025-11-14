@@ -8,6 +8,7 @@ import { tap } from 'rxjs';
 })
 export class FamigliaServices {
   families = signal<any[]>([]);
+  loading = signal(false);  // signal per lo spinner
 
   constructor(private http: HttpClient,
     private config: ConfigServices
@@ -17,10 +18,13 @@ export class FamigliaServices {
     let params = new HttpParams();
     if (pattern) params = params.set('pattern', pattern);
 
+    this.loading.set(true)
     this.http.get(this.config.backendURL() + "famiglia/list", {params})
       .subscribe({
-        next: ((r:any) => this.families.set(r))
+        next: ((r:any) => this.families.set(r)),
+        complete: () => this.loading.set(false)
       })
+
 
   }
   create(body:{}){

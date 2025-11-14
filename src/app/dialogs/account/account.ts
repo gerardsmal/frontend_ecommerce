@@ -25,7 +25,8 @@ export class Account implements OnInit {
     userName: new FormControl(null),
     password: new FormControl(null),
     passwordControl: new FormControl(null),
-    role: new FormControl(null, Validators.required)
+    role: new FormControl(null, Validators.required),
+    stato: new FormControl(null, Validators.required)
   })
 
   readonly dialog = inject(MatDialog);
@@ -56,7 +57,8 @@ export class Account implements OnInit {
         comune: this.account.commune,
         cap: this.account.cap,
         userName: this.account.userName,
-        role: this.account.role
+        role: this.account.role,
+        stato : this.account.status == 'Attivo' ? true : false
       })
 
     } else{
@@ -72,7 +74,7 @@ export class Account implements OnInit {
 
   }
   onUpdate() {
-    if (this.updateForm.controls['password'].touched) {
+    if (this.updateForm.controls['password'].dirty) {
       if (this.updateForm.value.password != this.updateForm.value.passwordControl) {
         this.msg.set("passord non coindicidenti");
         return;
@@ -81,41 +83,44 @@ export class Account implements OnInit {
     this.msg.set('');
     const updateBody: any = { id: this.account.id };
 
-    if (this.updateForm.controls['password'].touched)
+    if (this.updateForm.controls['password'].dirty)
       updateBody.pwd = this.updateForm.value.password;
 
-    if (this.updateForm.controls['nome'].touched)
+    if (this.updateForm.controls['nome'].dirty)
       updateBody.nome = this.updateForm.value.nome;
 
-    if (this.updateForm.controls['cognome'].touched)
+    if (this.updateForm.controls['cognome'].dirty)
       updateBody.cognome = this.updateForm.value.cognome;
 
-    if (this.updateForm.controls['email'].touched)
+    if (this.updateForm.controls['email'].dirty)
       updateBody.email = this.updateForm.value.email;
 
-    if (this.updateForm.controls['sesso'].touched)
+    if (this.updateForm.controls['sesso'].dirty)
       updateBody.sesso = this.updateForm.value.sesso == 'M' ? true : false;
 
-    if (this.updateForm.controls['telefono'].touched)
+    if (this.updateForm.controls['telefono'].dirty)
       updateBody.telefono = this.updateForm.value.telefono;
 
-    if (this.updateForm.controls['via'].touched)
+    if (this.updateForm.controls['via'].dirty)
       updateBody.via = this.updateForm.value.via;
 
-    if (this.updateForm.controls['comune'].touched)
+    if (this.updateForm.controls['comune'].dirty)
       updateBody.commune = this.updateForm.value.comune;
 
-    if (this.updateForm.controls['password'].touched)
+    if (this.updateForm.controls['password'].dirty)
       updateBody.pwd = this.updateForm.value.password;
 
-    if (this.updateForm.controls['cap'].touched)
+    if (this.updateForm.controls['cap'].dirty)
       updateBody.cap = this.updateForm.value.cap;
 
-    if (this.updateForm.controls['userName'].touched)
+    if (this.updateForm.controls['userName'].dirty)
       updateBody.userName = this.updateForm.value.userName;
 
-    if (this.updateForm.controls['role'].touched)
+    if (this.updateForm.controls['role'].dirty)
       updateBody.role = this.updateForm.value.role;
+
+    if (this.updateForm.controls['stato'].dirty)
+      updateBody.status = this.updateForm.value.stato;
 
     console.log(updateBody);
 

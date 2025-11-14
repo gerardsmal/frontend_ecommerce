@@ -1,5 +1,6 @@
 .example-container {
-  height: 600px;
+  min-height: 600px;
+  height: auto;
   margin: 10px;
   border: 1px solid #555;
   background: #eee;

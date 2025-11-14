@@ -37,6 +37,7 @@ import { FamigliaUpdate } from './dialogs/famiglia-update/famiglia-update';
 import { ArtistUpdate } from './dialogs/artist-update/artist-update';
 
 
+
 @NgModule({
   declarations: [
     App,
@@ -52,7 +53,8 @@ import { ArtistUpdate } from './dialogs/artist-update/artist-update';
     ConfirmDialog,
     Prodotti,
     FamigliaUpdate,
-    ArtistUpdate
+    ArtistUpdate,
+  
   ],
   imports: [
     BrowserModule,

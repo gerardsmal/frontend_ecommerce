@@ -13,11 +13,11 @@ import { ArtistUpdate } from '../../dialogs/artist-update/artist-update';
 export class Artisti implements OnInit {
   nome: any = null;
   genere: any = null;
-  
+
   readonly dialog = inject(MatDialog);
-  
+
   constructor(private familySevices: FamigliaServices,
-    private artistiServices: ArtistiServices
+    public artistiServices: ArtistiServices
   ) { }
 
 
@@ -36,7 +36,7 @@ export class Artisti implements OnInit {
 
 
   create() {
-
+    this.callDialog(null, 'C');
   }
 
   search() {
@@ -47,12 +47,12 @@ export class Artisti implements OnInit {
     console.log(art)
     this.artistiServices.getArtist(art.id)
       .subscribe({
-        next:((r:any) => {
+        next: ((r: any) => {
 
-            this.callDialog(r, 'U');
+          this.callDialog(r, 'U');
 
         }),
-        error:((r:any) => {
+        error: ((r: any) => {
           console.log("error:" + r.error.msg)
         })
       })
@@ -60,23 +60,26 @@ export class Artisti implements OnInit {
 
 
 
-  
+
 
   }
 
-   private callDialog(art:any,modalita:any){
-  
-      const enterAnimationDuration: string = '500ms';
-      const exitAnimationDuration: string = '500ms';
-  
-      const dialogRef = this.dialog.open(ArtistUpdate, {
-        width: '90vw',              // 👈 90% della larghezza della finestra
-        maxWidth: '1200px',         // 👈 limite massimo
-        enterAnimationDuration,
-        exitAnimationDuration,
-        data: { artist: art , mod:modalita},
-        panelClass: 'wide-dialog'
-      });
-    }
-  
+  private callDialog(art: any, modalita: any) {
+
+    const enterAnimationDuration: string = '500ms';
+    const exitAnimationDuration: string = '500ms';
+
+    const dialogRef = this.dialog.open(ArtistUpdate, {
+      width: '600px',             // larghezza più contenuta
+      maxWidth: '90vw',           // massimo rispetto alla viewport
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
+      data: { artist: art, mod: modalita },
+      panelClass: 'wide-dialog'   // puoi usare una classe personalizzata per stili extra
+    });
+
+
+
+  }
+
 }

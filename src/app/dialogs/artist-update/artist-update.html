@@ -1,12 +1,73 @@
 @if (mod == 'U'){
-  <h2 mat-dialog-title>Detaglio {{artist.nome}}</h2>
+<h2 mat-dialog-title>Dettaglio {{artist().nome}}</h2>
 } @else {
-  <h2 mat-dialog-title>Creazione nuovo utente</h2>
+<h2 mat-dialog-title>Creazione nuovo artisto</h2>
 }
-  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid">
-    <mat-form-field appearance="fill">
-      <mat-label>Nome</mat-label>
-      <input matInput type="text" name="nome" formControlName="nome">
-    </mat-form-field>
 
-  </form>  
+<form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid form-container">
+  <mat-form-field appearance="fill">
+    <mat-label>Nome</mat-label>
+    <input matInput type="text" name="nome" formControlName="nome">
+  </mat-form-field>
+
+  <div class="table-wrapper">
+    <table class="table table-stripped ">
+      <thead>
+        <tr>
+          <th matTooltip="cliccare su un genere per cancellarlo">Genere</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        @for (fam of artist()?.famiglia; track fam.id) {
+        <tr (click)="onSelectedFam(fam)" class="clickable-row">
+          <td>{{fam.descrizione}}</td>
+        </tr>
+        }
+   
+      </tbody>
+    </table>
+  </div>
+  <div></div>
+   @if (updateForm.valid){
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Genere da aggiungere</mat-label>
+    
+   
+   <mat-select name="newgenere" formControlName="newgenere">
+      @for (fam of families; track fam.id) {
+      <mat-option [value]="fam.id">{{ fam.descrizione }}</mat-option>
+      }
+    </mat-select>
+ 
+    
+    @if (newgenere) {
+    <button mat-icon-button matSuffix (click)="newgenere = null" matTooltip="Cancella">
+      <mat-icon>close</mat-icon>
+    </button>
+    }
+  </mat-form-field>
+   }
+  <div class="msg-error">
+    <span style="color:red">{{ msg() }}</span>
+  </div>
+
+  <div class="button-group">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!updateForm.valid"
+      matTooltip="Salvare le modifiche">
+      Registrazione
+    </button>
+
+
+    @if (mod == 'U'){
+    <button mat-raised-button color="primary" type="button" matTooltip="Cancellazione artista" (click)="remove()"
+      class="btn-danger">
+      cancellazione
+    </button>
+    }
+
+    <button mat-raised-button mat-dialog-close color="primary" matTooltip="chiudere la finestra">
+      Chiudere
+    </button>
+  </div>
+</form>
