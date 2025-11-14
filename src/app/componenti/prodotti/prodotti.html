@@ -1,1 +1,97 @@
-<p>prodotti works!</p>
+<div class="container">
+    <mat-card class="example-card" appearance="outlined">
+        <mat-card-header class="header-row">
+            <mat-card-title>Elenco Prodotti</mat-card-title>
+            <button mat-raised-button color="primary" (click)="create()">Creazione nuovo Artisto</button>
+        </mat-card-header>
+        <mat-divider style="margin-top: 20px;"></mat-divider>
+        <mat-card-content>
+            <div class="search-row">
+                <mat-form-field>
+                    <mat-label>Nome</mat-label>
+                    <input matInput placeholder="nome" [(ngModel)]="nome">
+                    @if (nome){
+                        <button mat-icon-button matSuffix (click)="nome = null" matTooltip="Cancella">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    }
+ 
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Artist</mat-label>
+                    <mat-select name='artist' [(ngModel)]="artist">
+                    @for (art of artisti; track art.id ){
+                        <mat-option value={{art.id}}>{{art.nome}}</mat-option>
+                    }    
+
+                </mat-select>
+                    @if (artist){
+                        <button mat-icon-button matSuffix (click)="artist = null" matTooltip="Cancella">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    }
+                </mat-form-field>
+
+
+
+                <mat-form-field>
+                    <mat-label>Genere</mat-label>
+                    <mat-select name='genere' [(ngModel)]="genere">
+                    @for (fam of families; track fam.id ){
+                        <mat-option value={{fam.id}}>{{fam.descrizione}}</mat-option>
+                    }    
+
+                </mat-select>
+                    @if (genere){
+                        <button mat-icon-button matSuffix (click)="genere = null" matTooltip="Cancella">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    }
+                </mat-form-field>
+                <span class="spacer"></span>
+                <button mat-raised-button color="accent" (click)="search()"
+                    matTooltip="ricerca con criteri">Cerca</button>
+            </div>
+            <mat-divider></mat-divider>
+            <div>
+            
+                @if (prodottiServices.loading()){
+                    <mat-spinner></mat-spinner>
+                } @else {
+            
+                <table class="table table-stripped ">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Artisto</th>
+                            <th>Genere</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        @for (prod of products; track prod.id) {
+                        <tr (click)="onSelectedProduct(prod)" class="clickable-row">
+                            <td>{{prod.descrizione}}</td>
+                            <td>{{prod.artista.nome}}</td>
+                            <td>{{prod.famiglia.descrizione}}</td>
+                         
+                        </tr>
+
+                        }
+
+                    </tbody>
+
+                </table>
+                
+            }
+
+            </div>
+
+
+
+        </mat-card-content>
+    </mat-card>
+</div>

@@ -35,6 +35,7 @@ import { ConfirmDialog } from './dialogs/confirm-dialog/confirm-dialog';
 import { Prodotti } from './componenti/prodotti/prodotti';
 import { FamigliaUpdate } from './dialogs/famiglia-update/famiglia-update';
 import { ArtistUpdate } from './dialogs/artist-update/artist-update';
+import { ProdottiUpdate } from './dialogs/prodotti-update/prodotti-update';
 
 
 
@@ -54,6 +55,7 @@ import { ArtistUpdate } from './dialogs/artist-update/artist-update';
     Prodotti,
     FamigliaUpdate,
     ArtistUpdate,
+    ProdottiUpdate,
   
   ],
   imports: [

@@ -1,0 +1,68 @@
+@if (mod == 'U'){
+<h2 mat-dialog-title>Detaglio {{prodotto.descrizione}} </h2>
+} @else {
+<h2 mat-dialog-title>Creazione nuovo prodotto</h2>
+}
+
+<mat-dialog-content>
+
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid form-container">
+        <mat-form-field appearance="fill">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" name="nome" formControlName="nome">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Genere</mat-label>
+
+
+            <mat-select name="genere" formControlName="genere">
+                @for (fam of families; track fam.id) {
+                <mat-option [value]="fam.id">{{ fam.descrizione }}</mat-option>
+                }
+            </mat-select>
+
+            @if (genere) {
+            <button mat-icon-button matSuffix (click)="genere = null" matTooltip="Cancella">
+                <mat-icon>close</mat-icon>
+            </button>
+            }
+        
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Artisto</mat-label>
+
+
+            <mat-select name="artist" formControlName="artist">
+                @for (art of artisti; track art.id) {
+                <mat-option [value]="art.id">{{ art.nome }}</mat-option>
+                }
+            </mat-select>
+
+            @if (artist) {
+            <button mat-icon-button matSuffix (click)="artist = null" matTooltip="Cancella">
+                <mat-icon>close</mat-icon>
+            </button>
+            }
+        </mat-form-field>
+
+        <div class="msg-error">
+            <span style="color:red">{{ msg() }}</span>
+        </div>
+        <div class="button-group">
+            <button mat-raised-button color="primary" type="submit" [disabled]="!updateForm.valid"
+                matTooltip="Salvare le modifiche">
+                Registrazione</button>
+            @if (mod == 'U'){
+            <button mat-raised-button color="primary" type="button" matTooltip="Cancellazione utente" (click)="remove()"
+                class="btn-danger">
+                cancelazione</button>
+
+            }
+            <button mat-raised-button mat-dialog-close color="primary" matTooltip="chiudere la finestra">
+                Chiudere</button>
+
+        </div>
+    </form>
+</mat-dialog-content>
