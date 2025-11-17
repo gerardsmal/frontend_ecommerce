@@ -5,64 +5,90 @@
 }
 
 <mat-dialog-content>
-
     <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid form-container">
-        <mat-form-field appearance="fill">
+
+        <mat-form-field appearance="fill" class="small-field">
             <mat-label>Nome</mat-label>
-            <input matInput type="text" name="nome" formControlName="nome">
+            <input matInput type="text" formControlName="nome">
         </mat-form-field>
 
-        <mat-form-field appearance="fill" class="full-width">
+        <mat-form-field appearance="fill" class="small-field">
             <mat-label>Genere</mat-label>
-
-
-            <mat-select name="genere" formControlName="genere">
+            <mat-select formControlName="genere">
                 @for (fam of families; track fam.id) {
                 <mat-option [value]="fam.id">{{ fam.descrizione }}</mat-option>
                 }
             </mat-select>
-
-            @if (genere) {
-            <button mat-icon-button matSuffix (click)="genere = null" matTooltip="Cancella">
-                <mat-icon>close</mat-icon>
-            </button>
-            }
-        
         </mat-form-field>
 
-        <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Artisto</mat-label>
-
-
-            <mat-select name="artist" formControlName="artist">
+        <mat-form-field appearance="fill" class="small-field">
+            <mat-label>Artista</mat-label>
+            <mat-select formControlName="artist">
                 @for (art of artisti; track art.id) {
                 <mat-option [value]="art.id">{{ art.nome }}</mat-option>
                 }
             </mat-select>
-
-            @if (artist) {
-            <button mat-icon-button matSuffix (click)="artist = null" matTooltip="Cancella">
-                <mat-icon>close</mat-icon>
-            </button>
-            }
         </mat-form-field>
 
-        <div class="msg-error">
+        <div class="msg-error full-row">
             <span style="color:red">{{ msg() }}</span>
         </div>
-        <div class="button-group">
-            <button mat-raised-button color="primary" type="submit" [disabled]="!updateForm.valid"
-                matTooltip="Salvare le modifiche">
-                Registrazione</button>
+
+        <mat-divider class="full-row"></mat-divider>
+
+        <mat-accordion class="full-row">
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <span>Prezzi e stock</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <button mat-raised-button color="primary" type="button">add support</button>
+                <div class="table-wrapper">
+                    <div class="table-wrapper">
+                        <table class="table table-stripped ">
+                            <thead>
+                                <tr>
+                                    <th>Supporto</th>
+                                    <th>Prezzo</th>
+                                    <th>Stock</th>
+                                    <th>Stock alert</th>
+                                </tr>
+                                
+                            </thead>
+                            <tbody>
+                                <!--
+        @for (fam of artist()?.famiglia; track fam.id) {
+        <tr (click)="onSelectedFam(fam)" class="clickable-row">
+          <td>{{fam.descrizione}}</td>
+        </tr>
+        }
+        -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <div class="button-group full-row">
+            <button mat-raised-button color="primary" type="submit" [disabled]="!updateForm.valid">
+                Registrazione
+            </button>
+
             @if (mod == 'U'){
-            <button mat-raised-button color="primary" type="button" matTooltip="Cancellazione utente" (click)="remove()"
-                class="btn-danger">
-                cancelazione</button>
-
+            <button mat-raised-button color="primary" type="button" class="btn-danger" (click)="remove()">
+                Cancellazione
+            </button>
             }
-            <button mat-raised-button mat-dialog-close color="primary" matTooltip="chiudere la finestra">
-                Chiudere</button>
 
+            <button mat-raised-button mat-dialog-close color="primary">
+                Chiudere
+            </button>
         </div>
+
     </form>
+
+
 </mat-dialog-content>

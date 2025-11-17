@@ -68,7 +68,7 @@ readonly dialog = inject(MatDialog);
       const exitAnimationDuration: string = '500ms';
   
       const dialogRef = this.dialog.open(ProdottiUpdate, {
-        width: '600px',             // larghezza più contenuta
+        width: '900px',             // larghezza più contenuta
         maxWidth: '90vw',           // massimo rispetto alla viewport
         enterAnimationDuration: '500ms',
         exitAnimationDuration: '500ms',
