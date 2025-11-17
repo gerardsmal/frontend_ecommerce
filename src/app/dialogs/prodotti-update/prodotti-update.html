@@ -37,13 +37,13 @@
         <mat-divider class="full-row"></mat-divider>
 
         <mat-accordion class="full-row">
-            <mat-expansion-panel hideToggle>
+            <mat-expansion-panel>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         <span>Prezzi e stock</span>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <button mat-raised-button color="primary" type="button">add support</button>
+                <button mat-raised-button color="primary" type="button" (click)="addSupport()">add support</button>
                 <div class="table-wrapper">
                     <div class="table-wrapper">
                         <table class="table table-stripped ">
@@ -54,16 +54,19 @@
                                     <th>Stock</th>
                                     <th>Stock alert</th>
                                 </tr>
-                                
+
                             </thead>
                             <tbody>
-                                <!--
-        @for (fam of artist()?.famiglia; track fam.id) {
-        <tr (click)="onSelectedFam(fam)" class="clickable-row">
-          <td>{{fam.descrizione}}</td>
-        </tr>
-        }
-        -->
+
+                                @for (prezzo of prodotto?.prezzo; track prezzo.id) {
+                                <tr (click)="onSelectedPrezzo(prezzo)" class="clickable-row">
+                                    <td>{{prezzo.supporto}}</td>
+                                    <td>{{prezzo.prezzo}}</td>
+                                    <td>{{prezzo.stock?.currentStock}}</td>
+                                    <td>{{prezzo.stock?.stockAlert}}</td>
+                                </tr>
+                                }
+
                             </tbody>
                         </table>
                     </div>

@@ -21,6 +21,14 @@
   grid-column: 1 / -1;   /* occupa tutte le colonne */
 }
 
+.spacer {
+    flex: 1 1 auto;
+}
+.clickable-row{    
+    cursor: pointer;
+}
+
+
 .button-group {
   display: flex;
   justify-content: center;

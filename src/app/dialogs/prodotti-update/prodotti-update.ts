@@ -61,8 +61,16 @@ export class ProdottiUpdate implements OnInit {
   }
 
   onSubmit(){
-
   }
+  
+  onSelectedPrezzo(pr:any){
+    console.log(pr)
+  }
+
+  addSupport(){
+    
+  }
+
   remove(){
 
   }

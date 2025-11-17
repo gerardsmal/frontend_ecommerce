@@ -37,6 +37,7 @@ import { Prodotti } from './componenti/prodotti/prodotti';
 import { FamigliaUpdate } from './dialogs/famiglia-update/famiglia-update';
 import { ArtistUpdate } from './dialogs/artist-update/artist-update';
 import { ProdottiUpdate } from './dialogs/prodotti-update/prodotti-update';
+import { AddSupporto } from './dialogs/add-supporto/add-supporto';
 
 
 
@@ -57,6 +58,7 @@ import { ProdottiUpdate } from './dialogs/prodotti-update/prodotti-update';
     FamigliaUpdate,
     ArtistUpdate,
     ProdottiUpdate,
+    AddSupporto,
   ],
   imports: [
     BrowserModule,

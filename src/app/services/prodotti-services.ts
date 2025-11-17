@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { ConfigServices } from './config-services';
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -31,4 +32,16 @@ export class ProdottiServices {
     return this.http.get(this.config.backendURL() + "prodotto/getById", {params});
   }
 
+  
+  
+  addPrezzoStock(body:{}){
+    return this.http.post(this.config.backendURL() + "prezzo/addPrezzoStock" , body)
+    .pipe(tap(() => this.list()));
+  }
+
+  deletePrezzo(id:any){
+    let params = new HttpParams().set("id", id);
+    return this.http.delete(this.config.backendURL() + "prezzo/delete", {params} )
+      .pipe(tap(() => this.list()));
+  }
 }
