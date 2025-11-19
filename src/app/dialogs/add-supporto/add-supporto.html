@@ -1,1 +1,69 @@
-<p>add-supporto works!</p>
+@if (mod == 'U'){
+<h2 mat-dialog-title>Detaglio support</h2>
+} @else {
+<h2 mat-dialog-title>Creazione nuovo supporto</h2>
+}
+<mat-dialog-content>
+
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid form-container">
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Supporto</mat-label>
+
+
+            <mat-select name="supporto" formControlName="supporto">
+                <mat-option value="CD">CD</mat-option>
+                <mat-option value="Vinile">Vinile</mat-option>
+                <mat-option value="MP3">MP3</mat-option>
+                <mat-option value="Video">Video</mat-option>
+            </mat-select>
+
+            @if (supporto) {
+            <button mat-icon-button matSuffix (click)="supporto = null" matTooltip="Cancella">
+                <mat-icon>close</mat-icon>
+            </button>
+            }
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Prezzo</mat-label>
+            <input matInput type="number" name="prezzo" formControlName="prezzo">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Stock attuale</mat-label>
+            <input matInput type="number" name="stock" formControlName="stock">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Stock Alert</mat-label>
+            <input matInput type="number" name="alert" formControlName="alert">
+        </mat-form-field>
+
+        <div class="msg-error">
+            <span style="color:red">{{ msg() }}</span>
+        </div>
+
+        <div class="button-group">
+            <button mat-raised-button color="primary" type="submit" [disabled]="!updateForm.valid"
+                matTooltip="Salvare le modifiche">
+                Registrazione
+            </button>
+
+
+            @if (mod == 'U'){
+            <button mat-raised-button color="primary" type="button" matTooltip="Cancellazione supporto"
+                (click)="remove()" class="btn-danger">
+                cancellazione
+            </button>
+            }
+
+            <button mat-raised-button mat-dialog-close color="primary" matTooltip="chiudere la finestra">
+                Chiudere
+            </button>
+        </div>
+
+
+    </form>
+
+</mat-dialog-content>

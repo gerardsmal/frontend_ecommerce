@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+mat-dialog-content {
+  display: flex;
+  justify-content: center; /* 👈 centra orizzontalmente */
+  align-items: center;     /* 👈 centra verticalmente (se vuoi anche in verticale) */
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 80%;
+  max-width: 1000px;
+  margin: 0 auto; /* 👈 centra la griglia dentro il contenitore */
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.radio-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.button-group {
+  grid-column: span 2; /* 👈 pulsante centrato su tutta la riga */
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+.msg-error {
+  grid-column: 1 / -1; /* 👈 estende da prima all'ultima colonna */
+  color: red;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.btn-danger:hover {
+  background-color: #b71c1c;
+  color: white;
+}
+
