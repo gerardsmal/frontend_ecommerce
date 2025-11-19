@@ -1,4 +1,4 @@
-@if (mod == 'U'){
+@if (mod() == 'U'){
 <h2 mat-dialog-title>Detaglio {{prodotto.descrizione}} </h2>
 } @else {
 <h2 mat-dialog-title>Creazione nuovo prodotto</h2>
@@ -35,7 +35,8 @@
         </div>
 
         <mat-divider class="full-row"></mat-divider>
-
+ 
+        @if (mod() == 'U'){
         <mat-accordion class="full-row">
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
@@ -58,7 +59,7 @@
                             </thead>
                             <tbody>
 
-                                @for (prezzo of prodotto?.prezzo; track prezzo.id) {
+                                @for (prezzo of prodotto()?.prezzo; track prezzo.id) {
                                 <tr (click)="onSelectedPrezzo(prezzo)" class="clickable-row">
                                     <td>{{prezzo.supporto}}</td>
                                     <td>{{prezzo.prezzo}}</td>
@@ -74,13 +75,13 @@
 
             </mat-expansion-panel>
         </mat-accordion>
-
+}
         <div class="button-group full-row">
             <button mat-raised-button color="primary" type="submit" [disabled]="!updateForm.valid">
                 Registrazione
             </button>
 
-            @if (mod == 'U'){
+            @if (mod() == 'U'){
             <button mat-raised-button color="primary" type="button" class="btn-danger" (click)="remove()">
                 Cancellazione
             </button>

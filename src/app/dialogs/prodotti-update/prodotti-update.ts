@@ -5,6 +5,7 @@ import { ArtistiServices } from '../../services/artisti-services';
 import { FamigliaServices } from '../../services/famiglia-services';
 import { AddSupporto } from '../add-supporto/add-supporto';
 import { ProdottiServices } from '../../services/prodotti-services';
+import { ConfirmDialog } from '../confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-prodotti-update',
@@ -13,8 +14,9 @@ import { ProdottiServices } from '../../services/prodotti-services';
   styleUrl: './prodotti-update.css',
 })
 export class ProdottiUpdate implements OnInit {
-  mod: any;
-  prodotto: any;
+  mod: any = signal("");
+
+  prodotto: any = signal<any>(null);
 
   readonly dialog = inject(MatDialog);
   genere: any;
@@ -32,13 +34,12 @@ export class ProdottiUpdate implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: any,
     private artistService: ArtistiServices,
     private familySevices: FamigliaServices,
-    private productServices : ProdottiServices,
+    private productServices: ProdottiServices,
     private dialogRef: MatDialogRef<ProdottiUpdate>
   ) {
-    console.log("constructor")
     if (data) {
-      this.prodotto=data.prodotto;
-      this.mod = data.mod
+      this.prodotto.set(data.prodotto);
+      this.mod.set(data.mod);
     }
 
   }
@@ -47,11 +48,11 @@ export class ProdottiUpdate implements OnInit {
     this.familySevices.list();
     this.artistService.list();
 
-    if (this.mod == 'U') {
+    if (this.mod() == 'U') {
       this.updateForm.patchValue({
-        nome: this.prodotto.descrizione,
-        genere: this.prodotto.famiglia.id,
-        artist: this.prodotto.artista.id
+        nome: this.prodotto().descrizione,
+        genere: this.prodotto().famiglia.id,
+        artist: this.prodotto().artista.id
       })
     }
   }
@@ -63,45 +64,119 @@ export class ProdottiUpdate implements OnInit {
     return this.artistService.artisti();
   }
 
-  onSubmit(){
+  onSubmit() {
+    if (this.mod() == 'U') this.onUpdate();
+    if (this.mod() == 'C') this.onCreate();
   }
-  
-  onSelectedPrezzo(pr:any){
+
+  onUpdate() {
+    console.log('onUpdate')
+    const updateBody: any = { id: this.prodotto().id }
+
+    if (this.updateForm.controls['nome'].dirty)
+      updateBody.descrizione = this.updateForm.value.nome;
+    if (this.updateForm.controls['genere'].dirty)
+      updateBody.idFamiglia = this.updateForm.value.genere;
+    if (this.updateForm.controls['artist'].dirty)
+      updateBody.idArtist = this.updateForm.value.artist;
+    
+    console.log(updateBody)
+    this.productServices.update(updateBody)
+      .subscribe(({
+        next:((r:any) => {
+          console.log(r);
+          this.dialogRef.close();
+        }),
+        error: ((r:any) => {
+          this.msg.set(r.error.msg);
+        })
+      }))
+
+  }
+
+  onCreate() {
+    console.log('onCreate')
+    this.productServices.create({
+      descrizione: this.updateForm.value.nome,
+      idFamiglia: this.updateForm.value.genere,
+      idArtist: this.updateForm.value.artist
+    }).subscribe({
+      next: ((r: any) => {
+        console.log("prodotto creato :" + r.result);
+        this.productServices.getProduct(r.result)
+          .subscribe({
+            next: ((r: any) => {
+              this.prodotto.set(r);
+              this.mod.set("U")
+            }),
+            error: ((r: any) => {
+              console.log(r.error.msg)
+            })
+          })
+
+
+
+      }),
+      error: ((r: any) => {
+        this.msg.set(r.error.msg);
+      })
+    })
+  }
+
+
+
+  onSelectedPrezzo(pr: any) {
     console.log(pr)
-    this.callDialog(this.prodotto,  pr, 'U');
+    this.callDialog(this.prodotto(), pr, 'U');
   }
 
-  addSupport(){
-    this.callDialog(this.prodotto,null, 'C');
+  addSupport() {
+    this.callDialog(this.prodotto(), null, 'C');
   }
 
-  remove(){
-
+  remove() {
+    const dialogConfirm = this.dialog.open(ConfirmDialog);
+    dialogConfirm.afterClosed()
+      .subscribe(r => {
+        if (r == 'si') this.removeAction(this.prodotto().id);
+      })
   }
 
-  private callDialog(prod:any,prez: any, modalita: any) {
-  
-      const enterAnimationDuration: string = '500ms';
-      const exitAnimationDuration: string = '500ms';
-  
-      const dialogRef = this.dialog.open(AddSupporto, {
-        width: '600px',             // larghezza più contenuta
-        maxWidth: '90vw',           // massimo rispetto alla viewport
-        enterAnimationDuration: '500ms',
-        exitAnimationDuration: '500ms',
-        data: { product:prod, prezzo: prez, mod: modalita },
-        panelClass: 'wide-dialog'   // puoi usare una classe personalizzata per stili extra
-      });
-      dialogRef.afterClosed()
+  removeAction(id: any) {
+    this.productServices.delete(id)
+      .subscribe({
+        next: ((r: any) => {
+          this.dialogRef.close();
+        }),
+        error: ((r: any) => {
+          console.log(r.error.msg);
+        })
+      })
+  }
+
+  private callDialog(prod: any, prez: any, modalita: any) {
+
+    const enterAnimationDuration: string = '500ms';
+    const exitAnimationDuration: string = '500ms';
+
+    const dialogRef = this.dialog.open(AddSupporto, {
+      width: '600px',             // larghezza più contenuta
+      maxWidth: '90vw',           // massimo rispetto alla viewport
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
+      data: { product: prod, prezzo: prez, mod: modalita },
+      panelClass: 'wide-dialog'   // puoi usare una classe personalizzata per stili extra
+    });
+    dialogRef.afterClosed()
       .subscribe(r => {
         if (r == 'ok') {
           this.productServices.getProduct(prod.id)
-            .subscribe((r:any) => {
-              this.prodotto=r;
-              console.log(this.prodotto);
+            .subscribe((r: any) => {
+              this.prodotto.set(r);
+              console.log(this.prodotto());
             })
         }
       })
-    }
-  
+  }
+
 }

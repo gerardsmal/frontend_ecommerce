@@ -32,16 +32,28 @@ export class ProdottiServices {
     return this.http.get(this.config.backendURL() + "prodotto/getById", {params});
   }
 
+  create(body:{}){
+    return this.http.post(this.config.backendURL() + "prodotto/create" , body)
+      .pipe(tap(() => this.list()))
+  }
   
+  update(body:{}){
+    return this.http.put(this.config.backendURL() + "prodotto/update" , body)
+      .pipe(tap(() => this.list()))
+  }
   
+
+  delete(id:any){
+    return this.http.delete(this.config.backendURL() + "prodotto/delete/" + id )
+    .pipe(tap(() => this.list()))
+  }
   addPrezzoStock(body:{}){
     return this.http.post(this.config.backendURL() + "prezzo/addPrezzoStock" , body)
     .pipe(tap(() => this.list()));
   }
 
   deletePrezzo(id:any){
-    let params = new HttpParams().set("id", id);
-    return this.http.delete(this.config.backendURL() + "prezzo/delete", {params} )
+    return this.http.delete(this.config.backendURL() + "prezzo/delete/" + id )
       .pipe(tap(() => this.list()));
   }
 }

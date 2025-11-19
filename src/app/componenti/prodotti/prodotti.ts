@@ -45,7 +45,7 @@ readonly dialog = inject(MatDialog);
   }
 
   create() {
-
+    this.callDialog(null, 'C');
   }
 
   onSelectedProduct(prod: any) {
@@ -66,7 +66,6 @@ readonly dialog = inject(MatDialog);
   
       const enterAnimationDuration: string = '500ms';
       const exitAnimationDuration: string = '500ms';
-  
       const dialogRef = this.dialog.open(ProdottiUpdate, {
         width: '900px',             
         maxWidth: '90vw',           
