@@ -26,7 +26,7 @@ export class Account implements OnInit {
     password: new FormControl(null),
     passwordControl: new FormControl(null),
     role: new FormControl(null, Validators.required),
-    stato: new FormControl(null, Validators.required)
+    stato: new FormControl()
   })
 
   readonly dialog = inject(MatDialog);

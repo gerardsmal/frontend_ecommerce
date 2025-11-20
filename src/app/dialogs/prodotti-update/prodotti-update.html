@@ -30,12 +30,42 @@
             </mat-select>
         </mat-form-field>
 
+        <button mat-raised-button color="primary" type='button'
+            [disabled]="mod() !== 'U'" 
+            (click)="fileInput.click()">
+            <mat-icon>upload</mat-icon>
+            Scegli immagine
+        </button>
+
+        <span style="margin-left: 10px;">{{ fileName }}</span>
+
+        <input #fileInput type="file" accept="image/*" style="display: none" (change)="onFileSelected($event)">
+
+        <button mat-raised-button color="primary" type='button' (click)="onUpload()" [disabled]="!selectedFile">
+            Carica
+        </button>
+        <mat-accordion class="full-row">
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <span>Immagine</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                @if (imageUrl()) {
+                <div>
+                    <img [src]="imageUrl()" alt="Uploaded" style="max-width: 300px;">
+                </div>
+                }
+            </mat-expansion-panel>
+        </mat-accordion>
+
         <div class="msg-error full-row">
             <span style="color:red">{{ msg() }}</span>
         </div>
 
         <mat-divider class="full-row"></mat-divider>
- 
+
         @if (mod() == 'U'){
         <mat-accordion class="full-row">
             <mat-expansion-panel>
@@ -43,8 +73,12 @@
                     <mat-panel-title>
                         <span>Prezzi e stock</span>
                     </mat-panel-title>
+                    <div class="panel-actions">
+                        <button mat-stroked-button color="primary" type="button" 
+                        (click)="addSupport()">Add support</button>
+                    </div>
                 </mat-expansion-panel-header>
-                <button mat-raised-button color="primary" type="button" (click)="addSupport()">add support</button>
+
                 <div class="table-wrapper">
                     <div class="table-wrapper">
                         <table class="table table-stripped ">
@@ -75,7 +109,7 @@
 
             </mat-expansion-panel>
         </mat-accordion>
-}
+        }
         <div class="button-group full-row">
             <button mat-raised-button color="primary" type="submit" [disabled]="!updateForm.valid">
                 Registrazione

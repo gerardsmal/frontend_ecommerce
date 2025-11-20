@@ -20,7 +20,7 @@ export class Prodotti implements OnInit {
     private artistiServices: ArtistiServices,
     public prodottiServices: ProdottiServices
   ) { }
-readonly dialog = inject(MatDialog);
+  readonly dialog = inject(MatDialog);
   ngOnInit(): void {
     this.familySevices.list();
     this.artistiServices.list();
@@ -50,7 +50,7 @@ readonly dialog = inject(MatDialog);
 
   onSelectedProduct(prod: any) {
 
-   console.log("id:" + prod.id)
+    console.log("id:" + prod.id)
     this.prodottiServices.getProduct(prod.id)
       .subscribe({
         next: ((r: any) => {
@@ -62,17 +62,19 @@ readonly dialog = inject(MatDialog);
         })
       })
   }
-   private callDialog(prod: any, modalita: any) {
-  
-      const enterAnimationDuration: string = '500ms';
-      const exitAnimationDuration: string = '500ms';
-      const dialogRef = this.dialog.open(ProdottiUpdate, {
-        width: '900px',             
-        maxWidth: '90vw',           
-        enterAnimationDuration: '500ms',
-        exitAnimationDuration: '500ms',
-        data: { prodotto: prod, mod: modalita },
-        panelClass: 'wide-dialog'   // puoi usare una classe personalizzata per stili extra
-      });
-    }
+  private callDialog(prod: any, modalita: any) {
+
+    const enterAnimationDuration: string = '500ms';
+    const exitAnimationDuration: string = '500ms';
+    const dialogRef = this.dialog.open(ProdottiUpdate, {
+      width: '1100px',
+      maxWidth: '90vw',
+      height: 'auto',
+      maxHeight: '90v',
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
+      data: { prodotto: prod, mod: modalita },
+      panelClass: 'wide-dialog'   // puoi usare una classe personalizzata per stili extra
+    });
+  }
 }

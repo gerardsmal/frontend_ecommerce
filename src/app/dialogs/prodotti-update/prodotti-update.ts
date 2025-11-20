@@ -6,6 +6,7 @@ import { FamigliaServices } from '../../services/famiglia-services';
 import { AddSupporto } from '../add-supporto/add-supporto';
 import { ProdottiServices } from '../../services/prodotti-services';
 import { ConfirmDialog } from '../confirm-dialog/confirm-dialog';
+import { UploadServices } from '../../services/upload-services';
 
 @Component({
   selector: 'app-prodotti-update',
@@ -22,6 +23,11 @@ export class ProdottiUpdate implements OnInit {
   genere: any;
   artist: any;
   msg = signal('');
+  imageUrl = signal(null);
+
+ fileName: string = '';
+  selectedFile: File | null = null;
+
 
   updateForm: FormGroup = new FormGroup({
     nome: new FormControl(null, Validators.required),
@@ -35,6 +41,7 @@ export class ProdottiUpdate implements OnInit {
     private artistService: ArtistiServices,
     private familySevices: FamigliaServices,
     private productServices: ProdottiServices,
+    private uploadServices: UploadServices,
     private dialogRef: MatDialogRef<ProdottiUpdate>
   ) {
     if (data) {
@@ -54,6 +61,8 @@ export class ProdottiUpdate implements OnInit {
         genere: this.prodotto().famiglia.id,
         artist: this.prodotto().artista.id
       })
+      if (this.prodotto().image != null)
+        this.imageUrl.set(this.prodotto().image);
     }
   }
 
@@ -123,7 +132,42 @@ export class ProdottiUpdate implements OnInit {
     })
   }
 
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
 
+    if (!input.files || input.files.length === 0) {
+      this.fileName = '';
+      this.selectedFile = null;
+      return;
+    }
+
+    // Prendi il file selezionato
+    this.selectedFile = input.files[0];
+    this.fileName = this.selectedFile.name;
+
+    console.log('File selezionato:', this.selectedFile);
+   
+  }
+    onUpload(){
+      console.log("upload...");
+      this.uploadServices.upload(this.selectedFile!, this.prodotto().id)
+        .subscribe({
+          next:((r:any) =>{
+            console.log(r.msg);
+            this.uploadServices.getUrl(r.msg)
+              .subscribe({
+                next:((r:any) =>{
+                  this.imageUrl.set(r.msg);
+                })
+              })
+
+
+          }),
+          error:((r:any) => {
+            console.log(r.error.msg);
+          })
+        })
+    }
 
   onSelectedPrezzo(pr: any) {
     console.log(pr)
