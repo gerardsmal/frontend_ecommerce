@@ -146,6 +146,8 @@ export class ProdottiUpdate implements OnInit {
     this.fileName = this.selectedFile.name;
 
     console.log('File selezionato:', this.selectedFile);
+
+    this.onUpload();
    
   }
     onUpload(){

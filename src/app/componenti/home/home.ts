@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FamigliaServices } from '../../services/famiglia-services';
+import { ArtistiServices } from '../../services/artisti-services';
+import { ProdottiServices } from '../../services/prodotti-services';
+import { debounceTime, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -6,32 +10,39 @@ import { Component } from '@angular/core';
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home {
-  fileName: string = '';
-  selectedFile?: File;
+export class Home implements OnInit {
 
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
+  nome: any | null = null;
+  genere: any = null;
+  artist: any = null;
 
-    if (!input.files || input.files.length === 0) {
-      this.fileName = '';
-      this.selectedFile = undefined;
-      return;
-    }
-
-    // Prendi il file selezionato
-    this.selectedFile = input.files[0];
-    this.fileName = this.selectedFile.name;
-
-    console.log('File selezionato:', this.selectedFile);
-    // Se vuoi, puoi chiamare subito il servizio:
-    // this.upload()
+  
+  
+  constructor(
+    private familySevices: FamigliaServices,
+    private artistiServices: ArtistiServices,
+    public prodottiServices: ProdottiServices
+  ) {
+  }
+  ngOnInit(): void {
+    this.familySevices.list();
+    this.artistiServices.list();
+    this.prodottiServices.list();
   }
 
-  upload(): void {
-    if (!this.selectedFile) {
-      console.warn('Nessun file selezionato');
-      return;
-    }
+  get families() {
+    return this.familySevices.families();
+  }
+
+  get artisti() {
+    return this.artistiServices.artisti();
+  }
+
+  get products() {
+    return this.prodottiServices.products();
+  }
+  applicaFiltri() {
+    console.log(this.nome + "/" + this.genere + "/" + this.artist);
+    this.prodottiServices.list(this.nome, this.artist, this.genere);
   }
 }

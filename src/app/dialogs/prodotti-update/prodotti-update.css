@@ -91,3 +91,27 @@ mat-panel-title {
 .panel-actions button {
   margin-left: 8px;
 }
+
+/* riga che contiene bottone + accordion immagine */
+.image-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;           /* spazio tra sinistra e destra */
+}
+
+/* sinistra: bottone + nome file */
+.image-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* destra: l'accordion occupa il resto della larghezza */
+.image-right {
+  flex: 1;
+}
+
+/* stile per la label del file */
+.file-name {
+  margin-left: 10px;
+}

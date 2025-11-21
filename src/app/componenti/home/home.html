@@ -1,27 +1,91 @@
-<h2>Upload immagine</h2>
-<!--
-    <input type="file" (change)="onFileSelected($event)" accept="image/*" />
- -->
-<button mat-raised-button color="primary" (click)="fileInput.click()">
-    <mat-icon>upload</mat-icon>
-    Scegli immagine
-</button>
+<mat-card class="example-card" appearance="outlined">
 
-<span style="margin-left: 10px;">{{ fileName }}</span>
+    <mat-card-header class="header-row">
+        <mat-card-title>Prodotti disponibili</mat-card-title>
+    </mat-card-header>
 
-<input #fileInput type="file" accept="image/*" style="display: none" (change)="onFileSelected($event)">
+    <mat-divider style="margin-top: 20px;"></mat-divider>
 
-<!--
-    <button (click)="onUpload()" [disabled]="!selectedFile">
-      Carica
-    </button>
+    <mat-card-content>
 
-    <p *ngIf="uploadError" style="color: red;">
-      {{ uploadError }}
-    </p>
+        <div class="filter-row">
 
-    <div *ngIf="imageUrl">
-      <p>Immagine caricata:</p>
-      <img [src]="imageUrl" alt="Uploaded image" style="max-width: 300px;">
-    </div>
-    -->
+            <!-- CAMPO NOME -->
+            <mat-form-field appearance="fill">
+                <mat-label>Nome</mat-label>
+                <input matInput placeholder="nome" [(ngModel)]="nome" (keyup.enter)="applicaFiltri()">
+
+                @if (nome) {
+                <button mat-icon-button matSuffix (click)="nome = null; applicaFiltri()" matTooltip="Cancella">
+                    <mat-icon>close</mat-icon>
+                </button>
+                }
+            </mat-form-field>
+
+            <!-- CAMPO ARTISTA -->
+            <mat-form-field appearance="fill">
+                <mat-label>Artist</mat-label>
+                <mat-select name="artist" [(ngModel)]="artist" (selectionChange)="applicaFiltri()">
+                    @for (art of artisti; track art.id) {
+                    <mat-option [value]="art.id">{{ art.nome }}</mat-option>
+                    }
+                </mat-select>
+
+                @if (artist) {
+                <button mat-icon-button matSuffix (click)="artist = null; applicaFiltri()" matTooltip="Cancella">
+                    <mat-icon>close</mat-icon>
+                </button>
+                }
+            </mat-form-field>
+
+            <!-- CAMPO GENERE -->
+            <mat-form-field appearance="fill">
+                <mat-label>Genere</mat-label>
+                <mat-select name="genere" [(ngModel)]="genere" (selectionChange)="applicaFiltri()">
+                    @for (fam of families; track fam.id) {
+                    <mat-option [value]="fam.id">{{ fam.descrizione }}</mat-option>
+                    }
+                </mat-select>
+
+                @if (genere) {
+                <button mat-icon-button matSuffix (click)="genere = null; applicaFiltri()" matTooltip="Cancella">
+                    <mat-icon>close</mat-icon>
+                </button>
+                }
+            </mat-form-field>
+
+        </div>
+
+    </mat-card-content>
+
+</mat-card>
+
+<div class="products-grid">
+    @for (prod of products; track prod.id){
+    <mat-card class="example-card">
+        <mat-card-header class="header-center">
+            <mat-card-title>{{prod.descrizione}}</mat-card-title>
+            <mat-card-subtitle>{{prod.artista.nome}}</mat-card-subtitle>
+        </mat-card-header>
+        <div class="image-container">
+            @if (prod.image) {
+            <img mat-card-image [src]="prod.image" alt="Cover" style="max-width: 200px;">
+            } @else {
+            <img src="no-image.jpg" style="max-width: 200px;">
+            }
+        </div>
+        <mat-card-content>
+            <p>
+                The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+                A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+                bred for hunting.
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button matButton>LIKE</button>
+            <button matButton>SHARE</button>
+        </mat-card-actions>
+    </mat-card>
+    }
+
+</div>

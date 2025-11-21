@@ -1,14 +1,18 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { ConfigServices } from './config-services';
+import { ProdottiServices } from './prodotti-services';
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UploadServices {
+
   
    constructor(private http: HttpClient,
-    private config: ConfigServices
+    private config: ConfigServices,
+    private prod: ProdottiServices
   ) { }
 
 
@@ -17,7 +21,8 @@ export class UploadServices {
     formData.append('file', file);
     formData.append('id', id);
 
-    return this.http.post(this.config.backendURL() + "upload/image" , formData);
+    return this.http.post(this.config.backendURL() + "upload/image" , formData)
+      .pipe(tap(() => this.prod.list()))
 
   }
 

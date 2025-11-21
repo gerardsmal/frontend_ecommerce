@@ -1,0 +1,107 @@
+/* ---------- CARD LAYOUT ---------- */
+
+.example-card {
+  width: 100%;
+  padding: 20px;
+}
+
+/* Titolo centrato */
+.header-row {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+.header-row mat-card-title {
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* ---------- CONTENUTO ---------- */
+
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* centra i form-field */
+  gap: 20px;             /* spazio uniforme verticale */
+  margin-top: 20px;
+}
+
+/* Larghezza uniforme per ogni campo */
+mat-form-field {
+  width: 80%;
+  max-width: 400px;
+}
+
+/* ---------- BOTTONI SUFFISSI ---------- */
+
+/* Bottoni close (X) integrati nel mat-form-field */
+mat-form-field button[mat-icon-button] {
+  margin-right: 4px;  /* leggera distanza dal bordo */
+}
+
+/* Tooltip spacing */
+mat-form-field button[mat-icon-button] mat-icon {
+  font-size: 20px;
+}
+
+/* ---------- RESPONSIVE (opzionale) ---------- */
+
+@media (max-width: 600px) {
+  mat-form-field {
+    width: 95%;
+  }
+}
+.filter-row {
+  display: flex;
+  flex-direction: row;       /* orizzontale */
+  justify-content: center;   /* centra i campi */
+  align-items: center;
+  gap: 20px;                 /* spazio tra i campi */
+  margin-top: 20px;
+  flex-wrap: wrap;           /* responsivo */
+}
+
+/* Ogni campo stessa larghezza */
+.filter-row mat-form-field {
+  width: 250px;              /* oppure 30%, come preferisci */
+}
+
+.products-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));  /* max 3 colonne */
+  padding: 16px;
+}
+.product-card {
+  height: 100%;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+}
+.image-container img {
+  max-width: 200px;
+  height: auto;
+  display: block;
+}
+
+/* Centra internamente mat-card-header */
+.header-center {
+  display: flex;
+  flex-direction: column;   /* title sopra, subtitle sotto */
+  align-items: center;      /* centra orizzontalmente */
+  text-align: center;       /* centra il testo */
+  width: 100%;
+}
+
+/* Per sicurezza: forza title/subtitle centrati */
+.header-center mat-card-title,
+.header-center mat-card-subtitle {
+  text-align: center;
+  width: 100%;
+}

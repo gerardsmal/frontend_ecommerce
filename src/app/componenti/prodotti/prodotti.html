@@ -63,11 +63,11 @@
                 <table class="table table-stripped ">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Nome</th>
                             <th>Artisto</th>
                             <th>Genere</th>
-                            <th></th>
-
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -75,16 +75,16 @@
 
                         @for (prod of products; track prod.id) {
                         <tr (click)="onSelectedProduct(prod)" class="clickable-row">
-                            <td>{{prod.descrizione}}</td>
-                            <td>{{prod.artista.nome}}</td>
-                            <td>{{prod.famiglia.descrizione}}</td>
                             <td>
                             @if (prod.image) {
                             <img [src]="prod.image" style="max-width: 80px;">
                             } @else {
-                            <!-- td vuoto -->
+                            <img src="no-image.jpg" style="max-width: 80px;">
                             }
                             </td>
+                            <td>{{prod.descrizione}}</td>
+                            <td>{{prod.artista.nome}}</td>
+                            <td>{{prod.famiglia.descrizione}}</td>
                         </tr>
 
                         }
