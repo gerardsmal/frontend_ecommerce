@@ -1,6 +1,13 @@
-/* ---------- CARD LAYOUT ---------- */
+/* ---------- CONTENITORE PAGINA ---------- */
+.page-container {
+  max-width: 1200px;    /* stessa larghezza per filtri + grid */
+  margin: 0 auto;
+  padding: 16px;
+}
 
-.example-card {
+/* ---------- CARD FILTRI ---------- */
+
+.filter-card {
   width: 100%;
   padding: 20px;
 }
@@ -18,90 +25,90 @@
   text-align: center;
 }
 
-/* ---------- CONTENUTO ---------- */
-
-mat-card-content {
+/* Contenuto card filtri */
+.filter-card mat-card-content {
   display: flex;
   flex-direction: column;
-  align-items: center;   /* centra i form-field */
-  gap: 20px;             /* spazio uniforme verticale */
+  align-items: center;
   margin-top: 20px;
 }
 
-/* Larghezza uniforme per ogni campo */
-mat-form-field {
-  width: 80%;
-  max-width: 400px;
-}
-
-/* ---------- BOTTONI SUFFISSI ---------- */
-
-/* Bottoni close (X) integrati nel mat-form-field */
-mat-form-field button[mat-icon-button] {
-  margin-right: 4px;  /* leggera distanza dal bordo */
-}
-
-/* Tooltip spacing */
-mat-form-field button[mat-icon-button] mat-icon {
-  font-size: 20px;
-}
-
-/* ---------- RESPONSIVE (opzionale) ---------- */
-
-@media (max-width: 600px) {
-  mat-form-field {
-    width: 95%;
-  }
-}
+/* RIGA FILTRI ORIZZONTALE */
 .filter-row {
   display: flex;
-  flex-direction: row;       /* orizzontale */
-  justify-content: center;   /* centra i campi */
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
-  gap: 20px;                 /* spazio tra i campi */
-  margin-top: 20px;
-  flex-wrap: wrap;           /* responsivo */
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 /* Ogni campo stessa larghezza */
 .filter-row mat-form-field {
-  width: 250px;              /* oppure 30%, come preferisci */
+  width: 250px;
 }
+
+/* Bottoni suffissi */
+.filter-row mat-form-field button[mat-icon-button] {
+  margin-right: 4px;
+}
+
+/* ---------- GRID PRODOTTI ---------- */
 
 .products-grid {
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(3, minmax(0, 1fr));  /* max 3 colonne */
-  padding: 16px;
+  padding-top: 24px;
 }
+
+/* Card prodotto */
 .product-card {
   height: 100%;
 }
 
+/* Centrare immagine nella card prodotto */
 .image-container {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px 0;
 }
+
 .image-container img {
   max-width: 200px;
   height: auto;
   display: block;
 }
 
-/* Centra internamente mat-card-header */
+/* Header card prodotto centrato */
 .header-center {
   display: flex;
-  flex-direction: column;   /* title sopra, subtitle sotto */
-  align-items: center;      /* centra orizzontalmente */
-  text-align: center;       /* centra il testo */
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   width: 100%;
 }
 
-/* Per sicurezza: forza title/subtitle centrati */
 .header-center mat-card-title,
 .header-center mat-card-subtitle {
   text-align: center;
   width: 100%;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-row mat-form-field {
+    width: 100%;
+  }
 }

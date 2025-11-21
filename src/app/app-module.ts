@@ -22,8 +22,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
-import { Login } from './componenti/login/login';
-import { Register } from './componenti/register/register';
 import { Dashboard } from './componenti/dashboard/dashboard';
 import { ConfigServices } from './services/config-services';
 import { Famiglia } from './componenti/famiglia/famiglia';
@@ -38,14 +36,15 @@ import { FamigliaUpdate } from './dialogs/famiglia-update/famiglia-update';
 import { ArtistUpdate } from './dialogs/artist-update/artist-update';
 import { ProdottiUpdate } from './dialogs/prodotti-update/prodotti-update';
 import { AddSupporto } from './dialogs/add-supporto/add-supporto';
+import { LoginDialog } from './dialogs/login-dialog/login-dialog';
+import { RegistrazioneDialog } from './dialogs/registrazione-dialog/registrazione-dialog';
+import { Notfound } from './notfound/notfound';
 
 
 
 @NgModule({
   declarations: [
     App,
-    Login,
-    Register,
     Dashboard,
     Famiglia,
     Artisti,
@@ -59,6 +58,9 @@ import { AddSupporto } from './dialogs/add-supporto/add-supporto';
     ArtistUpdate,
     ProdottiUpdate,
     AddSupporto,
+    LoginDialog,
+    RegistrazioneDialog,
+    Notfound,
   ],
   imports: [
     BrowserModule,

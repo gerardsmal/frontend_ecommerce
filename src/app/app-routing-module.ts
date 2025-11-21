@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Dashboard } from './componenti/dashboard/dashboard';
-import { Login } from './componenti/login/login';
-import { Register } from './componenti/register/register';
 import { Famiglia } from './componenti/famiglia/famiglia';
 import { Artisti } from './componenti/artisti/artisti';
 import { Home } from './componenti/home/home';
@@ -11,6 +9,7 @@ import { authAdminGuard } from './auth/auth-admin-guard';
 import { Carello } from './componenti/carello/carello';
 import { GestioneAccount } from './componenti/gestione-account/gestione-account';
 import { Prodotti } from './componenti/prodotti/prodotti';
+import { Notfound } from './notfound/notfound';
 
 const routes: Routes = [
   {path:'', redirectTo:'dash', pathMatch:'full'},
@@ -23,8 +22,8 @@ const routes: Routes = [
     {path:'artisti', component:Artisti, canActivate:[ authGuard, authAdminGuard]},
     {path:'prodotti', component:Prodotti, canActivate:[ authGuard, authAdminGuard]}
   ]},
-  {path:'login', component:Login},
-  {path:'register', component:Register}
+  { path: '404', component: Notfound},
+  { path: '**', redirectTo:'404'}  
 ];
 
 @NgModule({

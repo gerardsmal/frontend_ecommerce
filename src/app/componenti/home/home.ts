@@ -42,7 +42,6 @@ export class Home implements OnInit {
     return this.prodottiServices.products();
   }
   applicaFiltri() {
-    console.log(this.nome + "/" + this.genere + "/" + this.artist);
     this.prodottiServices.list(this.nome, this.artist, this.genere);
   }
 }

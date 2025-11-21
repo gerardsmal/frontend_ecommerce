@@ -5,7 +5,8 @@ import { Inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthService {
-
+  redirectUrl?: string;
+  
   grant = signal({
     isAdmin: false,
     isLogged: false,
@@ -14,7 +15,7 @@ export class AuthService {
   })
 
   constructor(@Inject(PLATFORM_ID) private platformId: object) {
-   
+
     if (isPlatformBrowser(this.platformId)) {
       console.log("restore---")
       const isLogged = localStorage.getItem("isLogged") === '1';
@@ -34,7 +35,7 @@ export class AuthService {
     }
   }
 
-  setAutentificated(userId: any, userName:any) {
+  setAutentificated(userId: any, userName: any) {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem("isLogged", "1");
       localStorage.setItem("userId", userId);
@@ -99,4 +100,4 @@ export class AuthService {
     return false;
   }
 
- }
+}

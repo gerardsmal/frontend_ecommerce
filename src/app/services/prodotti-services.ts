@@ -19,7 +19,6 @@ export class ProdottiServices {
     if (nome) params = params.set('desc', nome);
     if (artist) params = params.set('artist', artist);
     if (family) params = params.set('famiglia', family);
-    console.log(nome + "/" + artist + "/" + family);
     this.loading.set(true)
     this.http.get(this.config.backendURL() + "prodotto/list", { params })
       .subscribe({
