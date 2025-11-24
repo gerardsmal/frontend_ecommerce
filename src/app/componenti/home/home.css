@@ -67,18 +67,19 @@
   height: 100%;
 }
 
-/* Centrare immagine nella card prodotto */
 .image-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 0;
+  padding:/* Centrare immagine nella card prodotto */
+ 10px 0;
 }
 
 .image-container img {
   max-width: 200px;
   height: auto;
   display: block;
+  cursor: pointer;
 }
 
 /* Header card prodotto centrato */

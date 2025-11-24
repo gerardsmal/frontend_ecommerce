@@ -21,7 +21,7 @@ export class Dashboard {
   //  this.routing.navigate(['/login']);
     this.dialog.open(LoginDialog, {
     width: '400px',
-    disableClose: true,   
+    disableClose: false,   
     data: {}              
   });
   }

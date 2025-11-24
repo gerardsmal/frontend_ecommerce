@@ -6,7 +6,7 @@ import { Inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 })
 export class AuthService {
   redirectUrl?: string;
-  
+
   grant = signal({
     isAdmin: false,
     isLogged: false,
@@ -15,25 +15,22 @@ export class AuthService {
   })
 
   constructor(@Inject(PLATFORM_ID) private platformId: object) {
-
     if (isPlatformBrowser(this.platformId)) {
-      console.log("restore---")
+      console.log('restore---');
       const isLogged = localStorage.getItem("isLogged") === '1';
       const isAdmin = localStorage.getItem("isAdmin") === '1';
       const userId = localStorage.getItem("userId");
       const userName = localStorage.getItem("userName");
 
-      if (isLogged) {
-        this.grant.set({
-          isAdmin: isAdmin,
-          isLogged: isLogged,
-          userId: userId,
-          userName: userName
-        })
-      }
-
+      this.grant.set({
+        isAdmin,
+        isLogged,
+        userId,
+        userName
+      });
     }
   }
+
 
   setAutentificated(userId: any, userName: any) {
     if (isPlatformBrowser(this.platformId)) {
@@ -44,12 +41,12 @@ export class AuthService {
       this.grant.set({
         isAdmin: false,
         isLogged: true,
-        userId: userId,
-        userName: userName
-      })
-
+        userId,
+        userName
+      });
     }
   }
+
 
   setAdmin() {
     if (isPlatformBrowser(this.platformId)) {
@@ -88,11 +85,9 @@ export class AuthService {
 
 
   isAutentificated(): boolean {
-    if (isPlatformBrowser(this.platformId)) {
-      return localStorage.getItem("isLogged") === '1';
-    }
-    return false;
+    return this.grant().isLogged;
   }
+
   isRoleAdmin() {
     if (isPlatformBrowser(this.platformId)) {
       return localStorage.getItem("isAdmin") === '1';

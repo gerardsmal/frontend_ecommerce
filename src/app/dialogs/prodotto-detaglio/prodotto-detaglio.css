@@ -1,0 +1,46 @@
+.product-card {
+  height: 100%;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:/* Centrare immagine nella card prodotto */
+ 10px 0;
+}
+
+.image-container img {
+  max-width: 200px;
+  height: auto;
+  display: block;
+}
+
+/* Header card prodotto centrato */
+.header-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.header-center mat-card-title,
+.header-center mat-card-subtitle {
+  text-align: center;
+  width: 100%;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

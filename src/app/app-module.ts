@@ -39,6 +39,7 @@ import { AddSupporto } from './dialogs/add-supporto/add-supporto';
 import { LoginDialog } from './dialogs/login-dialog/login-dialog';
 import { RegistrazioneDialog } from './dialogs/registrazione-dialog/registrazione-dialog';
 import { Notfound } from './notfound/notfound';
+import { ProdottoDetaglio } from './dialogs/prodotto-detaglio/prodotto-detaglio';
 
 
 
@@ -61,6 +62,8 @@ import { Notfound } from './notfound/notfound';
     LoginDialog,
     RegistrazioneDialog,
     Notfound,
+    ProdottoDetaglio,
+  
   ],
   imports: [
     BrowserModule,

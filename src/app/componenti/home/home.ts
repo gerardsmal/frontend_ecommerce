@@ -44,4 +44,8 @@ export class Home implements OnInit {
   applicaFiltri() {
     this.prodottiServices.list(this.nome, this.artist, this.genere);
   }
+
+  selectProd(prod:any){
+    console.log(prod)
+  }
 }

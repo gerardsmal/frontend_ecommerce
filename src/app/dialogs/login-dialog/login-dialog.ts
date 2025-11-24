@@ -29,41 +29,35 @@ export class LoginDialog {
       userName: signin.form.value.userName,
       password: signin.form.value.password
     }).subscribe({
-      next: ((resp: any) => {
+      next: (resp: any) => {
         this.msg.set("");
-        console.log(resp)
         this.auth.setAutentificated(resp.userID, resp.userName);
-        if (resp.role == 'ADMIN')
-          this.auth.setAdmin();
-        if (resp.role == 'USER')
-          this.auth.setUser();
+        if (resp.role == 'ADMIN') this.auth.setAdmin();
+        if (resp.role == 'USER') this.auth.setUser();
 
-        const redirect = this.auth.redirectUrl || '/dash/home';
-        this.auth.redirectUrl = undefined;
-        this.dialogRef.close();
-        this.routing.navigateByUrl(redirect);
+        console.log('[LoginDialog] dopo login, isAutentificated =', this.auth.isAutentificated());
 
-      }),
-      error: ((resp: any) => {
+        this.dialogRef.close(true);
+      },
+      error: (resp: any) => {
         console.log(resp);
         this.msg.set(resp.error);
-      })
-    }
-
-    )
+      }
+    });
   }
 
+
   registrazione() {
-     const enterAnimationDuration: string = '500ms';
-        const exitAnimationDuration: string = '500ms';
-    
-        const dialogRef = this.dialog.open(RegistrazioneDialog, {
-          width: '90vw',              // 👈 90% della larghezza della finestra
-          maxWidth: '1200px',         // 👈 limite massimo
-          enterAnimationDuration,
-          exitAnimationDuration,
-          panelClass: 'wide-dialog'
-        });
+    const enterAnimationDuration: string = '500ms';
+    const exitAnimationDuration: string = '500ms';
+
+    const dialogRef = this.dialog.open(RegistrazioneDialog, {
+      width: '90vw',              // 👈 90% della larghezza della finestra
+      maxWidth: '1200px',         // 👈 limite massimo
+      enterAnimationDuration,
+      exitAnimationDuration,
+      panelClass: 'wide-dialog'
+    });
   }
 
 }

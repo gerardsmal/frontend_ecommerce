@@ -15,7 +15,8 @@
         <!-- CAMPO NOME -->
         <mat-form-field appearance="fill">
           <mat-label>Nome</mat-label>
-          <input matInput placeholder="nome" [(ngModel)]="nome" (keyup.enter)="applicaFiltri()">
+          <input matInput placeholder="nome della compilation" [(ngModel)]="nome" (keyup.enter)="applicaFiltri()" 
+                matTooltip="Press enter to activate filter">
           @if (nome) {
           <button mat-icon-button matSuffix (click)="nome = null; applicaFiltri()" matTooltip="Cancella">
             <mat-icon>close</mat-icon>
@@ -60,13 +61,13 @@
   <!-- GRID PRODOTTI -->
   <div class="products-grid">
     @for (prod of products; track prod.id) {
-    <mat-card class="product-card">
+    <mat-card class="product-card" >
       <mat-card-header class="header-center">
         <mat-card-title>{{prod.descrizione}}</mat-card-title>
         <mat-card-subtitle>{{prod.artista.nome}}</mat-card-subtitle>
       </mat-card-header>
 
-      <div class="image-container">
+      <div class="image-container" (click)="selectProd(prod)">
         @if (prod.image) {
         <img mat-card-image [src]="prod.image" alt="Cover">
         } @else {
@@ -75,16 +76,11 @@
       </div>
 
       <mat-card-content>
-        <p>
-          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-          A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-          bred for hunting.
-        </p>
+        <p><span><strong>Famiglia.  </strong>{{prod.famiglia.descrizione}}</span></p>
+        <p><span><strong>Supporto.  </strong>{{prod.supports}}</span></p>
       </mat-card-content>
 
       <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
       </mat-card-actions>
     </mat-card>
     }
