@@ -44,3 +44,26 @@
   }
 }
 
+/* Riga orizzontale per le 4 card */
+.info-cards-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;           /* spazio tra le card */
+  margin-top: 16px;
+}
+
+/* Le singole card dentro la riga */
+.info-card {
+  flex: 1 1 0;         /* tutte larghezza simile */
+  min-width: 0;        /* evita overflow nella riga */
+}
+
+/* Se il dialog è stretto, puoi farle andare a capo (opzionale) */
+/*
+.info-cards-row {
+  flex-wrap: wrap;
+}
+.info-card {
+  flex: 1 1 calc(25% - 16px); 
+}
+*/

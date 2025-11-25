@@ -28,6 +28,7 @@ export class AuthService {
         userId,
         userName
       });
+       console.log('[AuthService] constructor isLogged', this.grant().isLogged);
     }
   }
 
@@ -84,9 +85,9 @@ export class AuthService {
   }
 
 
-  isAutentificated(): boolean {
-    return this.grant().isLogged;
-  }
+ isAutentificated(): boolean {
+  return this.grant().isLogged;
+}
 
   isRoleAdmin() {
     if (isPlatformBrowser(this.platformId)) {

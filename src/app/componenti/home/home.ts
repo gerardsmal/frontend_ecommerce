@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FamigliaServices } from '../../services/famiglia-services';
 import { ArtistiServices } from '../../services/artisti-services';
 import { ProdottiServices } from '../../services/prodotti-services';
-import { debounceTime, Subject } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ProdottoDetaglio } from '../../dialogs/prodotto-detaglio/prodotto-detaglio';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,8 @@ export class Home implements OnInit {
   genere: any = null;
   artist: any = null;
 
-  
+  readonly dialog = inject(MatDialog);
+
   
   constructor(
     private familySevices: FamigliaServices,
@@ -47,5 +49,31 @@ export class Home implements OnInit {
 
   selectProd(prod:any){
     console.log(prod)
+
+    this.prodottiServices.getProduct(prod.id)
+      .subscribe({
+        next:((r:any) => {
+          this.callDialog(r);
+          console.log(r);
+        })
+      })
   }
+
+   private callDialog(prod: any) {
+   
+       const enterAnimationDuration: string = '500ms';
+       const exitAnimationDuration: string = '500ms';
+       const dialogRef = this.dialog.open(ProdottoDetaglio, {
+         width: '1100px',
+         maxWidth: '90vw',
+         height: 'auto',
+         maxHeight: '90v',
+         enterAnimationDuration: '500ms',
+         exitAnimationDuration: '500ms',
+         data: { prodotto: prod },
+         panelClass: 'wide-dialog'   // puoi usare una classe personalizzata per stili extra
+       });
+     }
+   
+
 }

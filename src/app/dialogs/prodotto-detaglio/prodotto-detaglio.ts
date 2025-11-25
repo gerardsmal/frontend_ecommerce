@@ -17,7 +17,7 @@ export class ProdottoDetaglio {
     private dialogRef: MatDialogRef<ProdottoDetaglio>
   ) {
     if (data) {
-      this.prodotto.set(data.prodotto);
+      this.prodotto = data.prodotto;
 
     }
 

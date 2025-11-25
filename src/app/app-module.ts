@@ -19,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
+import {MatBadgeModule} from '@angular/material/badge';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
@@ -84,7 +85,8 @@ import { ProdottoDetaglio } from './dialogs/prodotto-detaglio/prodotto-detaglio'
     MatSelectModule,
     MatDialogModule,
     MatProgressSpinnerModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatBadgeModule
 
 
   ],

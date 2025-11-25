@@ -38,6 +38,7 @@ export class LoginDialog {
         console.log('[LoginDialog] dopo login, isAutentificated =', this.auth.isAutentificated());
 
         this.dialogRef.close(true);
+        this.routing.navigate(['/dash']);
       },
       error: (resp: any) => {
         console.log(resp);
