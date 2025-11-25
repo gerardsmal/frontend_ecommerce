@@ -48,21 +48,17 @@ export class Home implements OnInit {
   }
 
   selectProd(prod:any){
-    console.log(prod)
-
+   
     this.prodottiServices.getProduct(prod.id)
       .subscribe({
         next:((r:any) => {
           this.callDialog(r);
-          console.log(r);
         })
       })
   }
 
    private callDialog(prod: any) {
    
-       const enterAnimationDuration: string = '500ms';
-       const exitAnimationDuration: string = '500ms';
        const dialogRef = this.dialog.open(ProdottoDetaglio, {
          width: '1100px',
          maxWidth: '90vw',

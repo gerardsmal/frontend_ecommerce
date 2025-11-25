@@ -7,9 +7,9 @@
 
     <div class="image-container">
       @if (prodotto.image) {
-        <img mat-card-image [src]="prodotto.image" alt="Cover">
+      <img mat-card-image [src]="prodotto.image" alt="Cover">
       } @else {
-        <img src="no-image.jpg" alt="No image">
+      <img src="no-image.jpg" alt="No image">
       }
     </div>
 
@@ -17,6 +17,20 @@
       <p>
         <span><strong>Famiglia. </strong>{{prodotto.famiglia.descrizione}}</span>
       </p>
+      <div class="info-cards-row">
+        @for (prezzo of prodotto.prezzo; track prezzo.id) {
+        <mat-card appearance="outlined" class="info-card">
+          <mat-card-header >
+            <mat-card-title>{{prezzo.supporto}}</mat-card-title>
+            <mat-card-subtitle>{{prezzo.prezzo | currency:'EUR'}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-actions align="end">
+            <button matButton (click)="aggiungiCarello(prezzo)">Aggiungi a carrello</button>
+          </mat-card-actions>
+        </mat-card>
+        }
+      </div>
+
 
     </mat-card-content>
 

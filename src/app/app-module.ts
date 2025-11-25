@@ -1,4 +1,4 @@
-import { NgModule, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { LOCALE_ID, NgModule, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
@@ -42,6 +42,10 @@ import { RegistrazioneDialog } from './dialogs/registrazione-dialog/registrazion
 import { Notfound } from './notfound/notfound';
 import { ProdottoDetaglio } from './dialogs/prodotto-detaglio/prodotto-detaglio';
 
+import { registerLocaleData } from '@angular/common';
+import localeIt from '@angular/common/locales/it';
+
+registerLocaleData(localeIt);
 
 
 @NgModule({
@@ -94,7 +98,8 @@ import { ProdottoDetaglio } from './dialogs/prodotto-detaglio/prodotto-detaglio'
     provideHttpClient(withFetch()),
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideClientHydration(withEventReplay())
+    provideClientHydration(withEventReplay()),
+    {provide: LOCALE_ID, useValue: 'it-IT' }
   ],
   bootstrap: [App]
 })

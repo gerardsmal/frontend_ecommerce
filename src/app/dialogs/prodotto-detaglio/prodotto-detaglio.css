@@ -1,69 +1,87 @@
-.product-card {
-  height: 100%;
+/* ----------- INFO CARDS (PREZZI) ----------- */
+
+/* RIGA DELLE 4 CARD */
+.info-cards-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
 }
 
-.image-container {
+/* CARD PREZZO */
+.info-card {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column; /* permette di allineare bene actions */
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+/* Header dentro le info-card */
+.info-card mat-card-header {
+  width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding:/* Centrare immagine nella card prodotto */
- 10px 0;
 }
 
-.image-container img {
-  max-width: 200px;
-  height: auto;
-  display: block;
-}
-
-/* Header card prodotto centrato */
-.header-center {
+/* Contenitore interno Angular Material */
+.info-card mat-card-header mat-card-header-text {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  width: 100%;
 }
 
-.header-center mat-card-title,
-.header-center mat-card-subtitle {
+/* Titolo e sottotitolo centrati */
+.info-card mat-card-title,
+.info-card mat-card-subtitle {
   text-align: center;
   width: 100%;
 }
 
-/* ---------- RESPONSIVE ---------- */
-@media (max-width: 900px) {
-  .products-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 600px) {
-  .products-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Riga orizzontale per le 4 card */
-.info-cards-row {
+/* Centrare il bottone */
+.info-card mat-card-actions {
+  margin-top: auto;         /* spinge il bottone verso il basso */
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  gap: 16px;           /* spazio tra le card */
-  margin-top: 16px;
+  justify-content: center;  /* centrato */
 }
 
-/* Le singole card dentro la riga */
-.info-card {
-  flex: 1 1 0;         /* tutte larghezza simile */
-  min-width: 0;        /* evita overflow nella riga */
+/* Bottoncino più elegante */
+.info-card button[matButton] {
+  padding: 4px 12px;
+  border-radius: 4px;
 }
 
-/* Se il dialog è stretto, puoi farle andare a capo (opzionale) */
-/*
-.info-cards-row {
-  flex-wrap: wrap;
+
+/* ----------- RESPONSIVE ----------- */
+
+/* Su schermi piccoli le card vanno a capo */
+@media (max-width: 600px) {
+  .info-cards-row {
+    flex-wrap: wrap;
+  }
+  .info-card {
+    flex: 1 1 calc(50% - 16px);
+  }
 }
-.info-card {
-  flex: 1 1 calc(25% - 16px); 
+
+/* Su schermi molto piccoli: una per riga */
+@media (max-width: 400px) {
+  .info-card {
+    flex: 1 1 100%;
+  }
 }
-*/
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.image-container img {
+  max-width: 250px;    /* ← riduci qui la larghezza */
+  max-height: 250px;   /* ← evita immagini alte */
+  object-fit: contain; /* mantiene proporzioni perfette */
+}
+

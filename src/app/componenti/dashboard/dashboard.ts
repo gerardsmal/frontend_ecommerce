@@ -13,22 +13,21 @@ import { LoginDialog } from '../../dialogs/login-dialog/login-dialog';
 export class Dashboard {
 
   readonly dialog = inject(MatDialog);
-  constructor(public auth:AuthService,
-              private routing:Router
-  ){}
- 
-  login(){
-  //  this.routing.navigate(['/login']);
+  constructor(public auth: AuthService,
+    private routing: Router
+  ) { }
+
+  login() {
     this.dialog.open(LoginDialog, {
-    width: '400px',
-    disableClose: false,   
-    data: {}              
-  });
+      width: '400px',
+      disableClose: false,
+      data: {}
+    });
   }
 
-  logout(){
+  logout() {
     console.log('logout')
     this.auth.resetAll();
     this.routing.navigate(['/dash']);
   }
- }
+}
