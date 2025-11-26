@@ -49,3 +49,50 @@ mat-form-field {
   color: white;
 }
 
+.dialog-container {
+  position: relative;
+  padding-top: 40px;  /* spazio per la X sopra la card */
+}
+
+/* Bottone X in alto a destra, sopra a tutto */
+.dialog-close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: #555;
+  z-index: 10;       /* 👈 importante per stare sopra alla mat-card */
+}
+
+.dialog-close-btn:hover {
+  color: #000;
+}
+
+.header-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* 👈 centra orizzontalmente */
+  text-align: center;
+  width: 100%;
+}
+
+.header-center mat-card-title,
+.header-center mat-card-subtitle {
+  width: 100%;
+  text-align: center;
+}
+mat-card-header {
+  margin-bottom: 20px;   /* 👈 spazio desiderato */
+}
+
+/* Rende il dialog "auto-height" senza scroll */
+::ng-deep .mat-mdc-dialog-surface {
+  max-height: none !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* Rimuove lo scroll interno */
+mat-dialog-content {
+  max-height: none !important;
+  overflow: visible !important;
+}

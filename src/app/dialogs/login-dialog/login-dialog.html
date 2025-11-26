@@ -1,4 +1,7 @@
-<div class="container">
+<div class="container dialog-container">
+    <button mat-icon-button mat-dialog-close class="dialog-close-btn">
+        <mat-icon>close</mat-icon>
+    </button>
     <h2 mat-dialog-title>Login</h2>
     <mat-dialog-content>
         <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">

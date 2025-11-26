@@ -62,7 +62,7 @@ export class Home implements OnInit {
    
        const dialogRef = this.dialog.open(ProdottoDetaglio, {
          width: '1100px',
-         maxWidth: '90vw',
+         maxWidth: '100vw',
          height: 'auto',
          maxHeight: '90v',
          enterAnimationDuration: '500ms',
@@ -73,7 +73,8 @@ export class Home implements OnInit {
       
        dialogRef.afterClosed()
         .subscribe(r => {
-          if (r != null){
+          console.log('r:' + r + '<<< length:' + r.length);
+          if (r.length > 0){
             const dialogConfirm = this.dialog.open(AddRowConfirm, {
               data: { msg: r },
               width: '400px',

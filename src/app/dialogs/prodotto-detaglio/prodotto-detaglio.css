@@ -84,4 +84,22 @@
   max-height: 250px;   /* ← evita immagini alte */
   object-fit: contain; /* mantiene proporzioni perfette */
 }
+.dialog-container {
+  position: relative;
+  padding-top: 40px;  /* spazio per la X sopra la card */
+}
+
+/* Bottone X in alto a destra, sopra a tutto */
+.dialog-close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: #555;
+  z-index: 10;       /* 👈 importante per stare sopra alla mat-card */
+}
+
+.dialog-close-btn:hover {
+  color: #000;
+}
+
 

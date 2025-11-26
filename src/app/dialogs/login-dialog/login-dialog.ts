@@ -54,7 +54,8 @@ export class LoginDialog {
 
     const dialogRef = this.dialog.open(RegistrazioneDialog, {
       width: '90vw',              // 👈 90% della larghezza della finestra
-      maxWidth: '1200px',         // 👈 limite massimo
+      maxWidth: '1200px',   
+      height : 'auto',     
       enterAnimationDuration,
       exitAnimationDuration,
       panelClass: 'wide-dialog'
