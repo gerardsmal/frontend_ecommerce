@@ -1,8 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { AuthService } from '../../auth/auth-service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialog } from '../../dialogs/login-dialog/login-dialog';
+import { AccountServices } from '../../services/account-services';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,9 +15,11 @@ export class Dashboard {
 
   readonly dialog = inject(MatDialog);
   constructor(public auth: AuthService,
+    private account:AccountServices,
     private routing: Router
   ) { }
 
+ 
   login() {
     this.dialog.open(LoginDialog, {
       width: '400px',

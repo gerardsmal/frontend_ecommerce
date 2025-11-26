@@ -24,7 +24,7 @@
 
   <button mat-icon-button
         class="example-icon"
-        matBadge="0"
+        matBadge="{{auth.grant().carelloSize}}"
         aria-label="Carrello"
         matTooltip="Carrello"
         [routerLink]="['/dash','carello']">

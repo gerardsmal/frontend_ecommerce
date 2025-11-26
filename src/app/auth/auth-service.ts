@@ -12,6 +12,7 @@ export class AuthService {
     isAdmin: false,
     isLogged: false,
     userId: null as string | null,
+    carelloSize: null as string | null,
     userName: null as string | null,
   })
 
@@ -22,11 +23,13 @@ export class AuthService {
       const isAdmin = localStorage.getItem("isAdmin") === '1';
       const userId = localStorage.getItem("userId");
       const userName = localStorage.getItem("userName");
+      const carelloSize = localStorage.getItem("carelloSize");
 
       this.grant.set({
         isAdmin,
         isLogged,
         userId,
+        carelloSize,
         userName
       });
        console.log('[AuthService] constructor isLogged', this.grant().isLogged);
@@ -34,16 +37,18 @@ export class AuthService {
   }
 
 
-  setAutentificated(userId: any, userName: any) {
+  setAutentificated(userId: any, userName: any, carelloSize:any) {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem("isLogged", "1");
       localStorage.setItem("userId", userId);
       localStorage.setItem("userName", userName);
+      localStorage.setItem("carelloSize", carelloSize);
 
       this.grant.set({
         isAdmin: false,
         isLogged: true,
         userId,
+        carelloSize,
         userName
       });
     }
@@ -62,7 +67,18 @@ export class AuthService {
      return EMPTY;
   }
 
-  setUser() {
+  setCarelloSize(carrello:any) {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem("carelloSize", carrello);
+      this.grant.update(grant => ({
+        ...grant,     // copia tutte le proprieta di grant
+        carelloSize: carrello
+      }));
+    }
+     return EMPTY;
+  }
+
+ setUser() {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem("isAdmin", "0");
       this.grant.update(grant => ({
@@ -73,16 +89,19 @@ export class AuthService {
      return EMPTY;
   }
 
+
   resetAll() {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem("isAdmin");
       localStorage.removeItem("isLogged");
       localStorage.removeItem("userId");
       localStorage.removeItem("userName");
+      localStorage.removeItem("carelloSize");
       this.grant.set({
         isAdmin: false,
         isLogged: false,
         userId: null,
+        carelloSize: null,
         userName: null
       })
     }

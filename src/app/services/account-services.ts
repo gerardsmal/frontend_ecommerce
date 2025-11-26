@@ -47,6 +47,12 @@ export class AccountServices {
         next: ((r: any) => this.accounts.set(r)),
         complete: () => this.loading.set(false)
       })
+  }
+
+  getAccount(id:any){
+    let params = new HttpParams().set('id', id);
+    return this.http.get(this.config.backendURL() + "account/getAccount", { params});
 
   }
+
 }

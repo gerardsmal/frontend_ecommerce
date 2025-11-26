@@ -4,6 +4,7 @@ import { ArtistiServices } from '../../services/artisti-services';
 import { ProdottiServices } from '../../services/prodotti-services';
 import { MatDialog } from '@angular/material/dialog';
 import { ProdottoDetaglio } from '../../dialogs/prodotto-detaglio/prodotto-detaglio';
+import { AddRowConfirm } from '../../dialogs/add-row-confirm/add-row-confirm';
 
 @Component({
   selector: 'app-home',
@@ -69,6 +70,17 @@ export class Home implements OnInit {
          data: { prodotto: prod },
          panelClass: 'wide-dialog'   // puoi usare una classe personalizzata per stili extra
        });
+      
+       dialogRef.afterClosed()
+        .subscribe(r => {
+          if (r != null){
+            const dialogConfirm = this.dialog.open(AddRowConfirm, {
+              data: { msg: r },
+              width: '400px',
+              maxWidth: '90vw'
+            });
+          }
+        })
      }
    
 

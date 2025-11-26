@@ -1,0 +1,16 @@
+.dialog-container {
+  position: relative;
+  padding-top: 30px; /* spazio per la X */
+}
+
+.dialog-close-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #555;
+}
+
+.dialog-close-btn:hover {
+  color: #000;
+}
+

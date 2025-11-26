@@ -46,6 +46,7 @@ import { ProdottoDetaglio } from './dialogs/prodotto-detaglio/prodotto-detaglio'
 
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/it';
+import { AddRowConfirm } from './dialogs/add-row-confirm/add-row-confirm';
 
 registerLocaleData(localeIt);
 
@@ -70,6 +71,7 @@ registerLocaleData(localeIt);
     RegistrazioneDialog,
     Notfound,
     ProdottoDetaglio,
+    AddRowConfirm,
 
   ],
   imports: [
