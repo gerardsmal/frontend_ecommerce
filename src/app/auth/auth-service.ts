@@ -1,5 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { EMPTY } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -46,6 +47,7 @@ export class AuthService {
         userName
       });
     }
+    return EMPTY;
   }
 
 
@@ -57,6 +59,7 @@ export class AuthService {
         isAdmin: true
       }));
     }
+     return EMPTY;
   }
 
   setUser() {
@@ -67,6 +70,7 @@ export class AuthService {
         isAdmin: false
       }));
     }
+     return EMPTY;
   }
 
   resetAll() {
@@ -82,6 +86,7 @@ export class AuthService {
         userName: null
       })
     }
+     return EMPTY;
   }
 
 

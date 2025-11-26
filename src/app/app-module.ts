@@ -1,8 +1,10 @@
-import { LOCALE_ID, NgModule, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { LOCALE_ID, NgModule, APP_INITIALIZER, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
-
+export function initConfig(config: ConfigServices) {
+  return () => config.loadURL();  // Angular aspetta la Promise
+}
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,7 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatBadgeModule } from '@angular/material/badge';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
@@ -68,7 +70,7 @@ registerLocaleData(localeIt);
     RegistrazioneDialog,
     Notfound,
     ProdottoDetaglio,
-  
+
   ],
   imports: [
     BrowserModule,
@@ -99,12 +101,16 @@ registerLocaleData(localeIt);
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideClientHydration(withEventReplay()),
-    {provide: LOCALE_ID, useValue: 'it-IT' }
+    { provide: LOCALE_ID, useValue: 'it-IT' },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initConfig,
+      deps: [ConfigServices],
+      multi: true
+    }
   ],
   bootstrap: [App]
 })
 export class AppModule {
-  constructor(private configService: ConfigServices) {
-    this.configService.loadURL();
-  }
 }
+

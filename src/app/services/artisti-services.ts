@@ -7,6 +7,7 @@ import { tap } from 'rxjs';
   providedIn: 'root',
 })
 export class ArtistiServices {
+  
   artisti = signal<any[]>([]);
   loading = signal(false);  // signal per lo spinner
   constructor(private http: HttpClient,
