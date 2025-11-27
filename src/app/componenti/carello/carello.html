@@ -1,1 +1,97 @@
-<p>Carello</p>
+<div class="container">
+    <mat-card class="example-card" appearance="outlined">
+        <mat-card-header class="header-row">
+            <mat-card-title>Prodotti del carrello</mat-card-title>
+            <mat-card-subtitle>Prezzo totale: {{account()?.carello?.prezzoTotale | currency:'EUR'}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-divider style="margin-top: 20px;"></mat-divider>
+            <div>
+
+                <table class="table table-stripped ">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Nome</th>
+                            <th>Artisto</th>
+                            <th>Genere</th>
+                            <th>Supporto</th>
+                            <th>Prezzo</th>
+                            <th>Quantita</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    
+                        @for (riga of account()?.carello?.riga ?? []; track riga.id) {
+                        <tr class="cart-row">
+
+                            <!-- Immagine -->
+                            <td class="cart-cell image-cell" (click)="onSelectedProduct(riga)">
+                                <img [src]="riga.image || 'no-image.jpg'" alt="" />
+                            </td>
+
+                            <!-- Nome -->
+                            <td class="cart-cell">
+                                <div class="cell-text">{{ riga.productName }}</div>
+                            </td>
+
+                            <!-- Artista -->
+                            <td class="cart-cell">
+                                <div class="cell-text">{{ riga.artist }}</div>
+                            </td>
+
+                            <!-- Genere -->
+                            <td class="cart-cell">
+                                <div class="cell-text">{{ riga.genere }}</div>
+                            </td>
+
+                            <!-- Supporto -->
+                            <td class="cart-cell">
+                                <div class="cell-text">{{ riga.supporto }}</div>
+                            </td>
+
+                            <!-- Prezzo -->
+                            <td class="cart-cell">
+                                <div class="cell-text">{{ riga.prezzo | currency: 'EUR' }}</div>
+                            </td>
+
+                            <td class="cart-cell qty-cell">
+                                <div class="qty-control">
+                                    <button mat-icon-button class="qty-btn"
+                                        (click)="onChangeQuantita(riga, riga.quantita - 1)">
+                                        <mat-icon>remove</mat-icon>
+                                    </button>
+
+                                    <input type="number" min="1" [value]="riga.quantita"
+                                        (change)="onChangeQuantita(riga, $event.target.value)" class="qty-input">
+
+                                    <button mat-icon-button class="qty-btn"
+                                        (click)="onChangeQuantita(riga, riga.quantita + 1)">
+                                        <mat-icon>add</mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+
+                          
+                            <td class="cart-cell delete-cell">
+                                <button mat-icon-button color="warn" class="delete-btn" (click)="onDelete(riga.id)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </td>
+
+                        </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+
+            </div>
+
+
+
+        </mat-card-content>
+    </mat-card>
+</div>

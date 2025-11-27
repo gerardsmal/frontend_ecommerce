@@ -19,5 +19,7 @@ export class AddRowConfirm {
     }
 
   }
- 
+ onCarrello(){
+    this.dialogRef.close('carrello')
+ }
 }

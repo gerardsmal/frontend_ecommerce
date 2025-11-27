@@ -17,5 +17,9 @@ export class CarrelloServices {
     return this.http.post(this.config.backendURL() + "carello/addRiga", body)
       .pipe(tap(() => this.account.list()))
   }
+  deleteRiga(id:any){
+    console.log('deleteRiga:' + id)
+    return this.http.delete(this.config.backendURL() + "carello/deleteRiga/" + id);
+  }
 }
 

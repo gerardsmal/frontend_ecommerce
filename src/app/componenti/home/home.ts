@@ -5,6 +5,7 @@ import { ProdottiServices } from '../../services/prodotti-services';
 import { MatDialog } from '@angular/material/dialog';
 import { ProdottoDetaglio } from '../../dialogs/prodotto-detaglio/prodotto-detaglio';
 import { AddRowConfirm } from '../../dialogs/add-row-confirm/add-row-confirm';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +25,8 @@ export class Home implements OnInit {
   constructor(
     private familySevices: FamigliaServices,
     private artistiServices: ArtistiServices,
-    public prodottiServices: ProdottiServices
+    public prodottiServices: ProdottiServices,
+    private rounting:Router
   ) {
   }
   ngOnInit(): void {
@@ -73,13 +75,16 @@ export class Home implements OnInit {
       
        dialogRef.afterClosed()
         .subscribe(r => {
-          console.log('r:' + r + '<<< length:' + r.length);
           if (r.length > 0){
             const dialogConfirm = this.dialog.open(AddRowConfirm, {
               data: { msg: r },
               width: '400px',
               maxWidth: '90vw'
             });
+            dialogConfirm.afterClosed()
+              .subscribe(r => {
+                this.rounting.navigate(['dash/carello']);
+              } )
           }
         })
      }

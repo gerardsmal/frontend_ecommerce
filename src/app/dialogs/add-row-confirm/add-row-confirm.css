@@ -14,3 +14,9 @@
   color: #000;
 }
 
+.dialog-actions-right {
+  display: flex;
+  justify-content: flex-end; /* allinea a destra */
+  margin-top: 16px;
+}
+
