@@ -18,8 +18,12 @@ export class CarrelloServices {
       .pipe(tap(() => this.account.list()))
   }
   deleteRiga(id:any){
-    console.log('deleteRiga:' + id)
     return this.http.delete(this.config.backendURL() + "carello/deleteRiga/" + id);
+  }
+
+  updateQta(body:any){
+    return this.http.put(this.config.backendURL() + "carello/updateRiga", body)
+      .pipe(tap(() => this.account.list()))
   }
 }
 

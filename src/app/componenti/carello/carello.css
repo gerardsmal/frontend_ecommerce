@@ -5,26 +5,16 @@
 .example-card-footer {
   padding: 16px;
 }
-.container{
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 20px;
-    padding: 0;
-    margin: 0;
-    width: 100%;
+.container {
+  display: flex;
+  justify-content: center;   /* CENTRA ORIZZONTALMENTE */
+  align-items: flex-start;   /* se vuoi centrare anche verticalmente: center */
+  padding: 20px;
+  width: 100%;
 }
 
-.search-row{
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin: 15px 0;
-    flex-wrap: nowrap;
-}
 .header-row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     width: 100%;
 }
@@ -117,5 +107,17 @@
 .cart-row:hover {
   background-color: #f7f7f7;
 }
-
+.subtitle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.total-text {
+  margin-right: 12px;
+  font-weight: 500;
+}
+.order-btn {
+  margin-left: auto;   
+}
 

@@ -1,0 +1,43 @@
+<h1>Ordine</h1>
+<mat-vertical-stepper [linear]="false" #stepper [animationDuration]="duration">
+
+<mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Dati di spedizione</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+      </mat-form-field>
+      <div>
+        <button matButton matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Modalità di pagamento</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Address" formControlName="secondCtrl" required>
+      </mat-form-field>
+      <div>
+        <button matButton matStepperPrevious>Back</button>
+        <button matButton matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Riassunto</ng-template>
+    facciamo il controle dei dati (inidirizzo, carello, modialita di pagamenti)
+    <div>
+      <button matButton matStepperPrevious>Back</button>
+       <button matButton matStepperNext>Next</button>
+        <button matButton (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+   <mat-step>
+    <ng-template matStepLabel>Invio ordine</ng-template>
+        invio dell'ordine con rispota stato
+    <div>
+    </div>
+  </mat-step>
+<
+</mat-vertical-stepper>

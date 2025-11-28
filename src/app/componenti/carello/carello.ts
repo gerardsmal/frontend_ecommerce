@@ -2,6 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { AccountServices } from '../../services/account-services';
 import { AuthService } from '../../auth/auth-service';
 import { CarrelloServices } from '../../services/carrello-services';
+import { Router } from '@angular/router';
 
 interface RigaCarello {
   id: number;
@@ -32,11 +33,12 @@ interface Account {
 export class Carello implements OnInit {
 
   account = signal<Account | null>(null);
-
+  msg = signal('');
   constructor(
     private accountServices: AccountServices,
     private auth: AuthService,
-    private carelloServices: CarrelloServices
+    private carelloServices: CarrelloServices,
+    private routing:Router
   ) { }
 
   ngOnInit(): void {
@@ -46,9 +48,7 @@ export class Carello implements OnInit {
   private loadAccount() {
     this.accountServices.getAccount(this.auth.grant().userId)
       .subscribe({
-
         next: (response: any) => {
-          console.log("Account ricevuto:", response);
           this.account.set(response);
         },
         error: (err) => {
@@ -59,6 +59,7 @@ export class Carello implements OnInit {
 
   onSelectedProduct(riga: RigaCarello) {
     console.log("onSelectedProduct")
+    this.msg.set('');
   }
   onDelete(id: number) {
     console.log("delete:", id);
@@ -71,13 +72,30 @@ export class Carello implements OnInit {
           this.auth.setCarelloSize(num - 1);
         }),
         error: ((r: any) => {
-          console.log(r.error.msg)
+          this.msg.set(r.error.msg);
         })
       })
 
   }
 
-  onChangeQuantita(riga:any, value:any){
-    console.log("value:" + value);
+  onChangeQuantita(riga: any, quantita: any) {
+    console.log("change qta:" + quantita);
+    this.msg.set('');
+    this.carelloServices.updateQta({
+      id: riga.id,
+      quantita: quantita
+    }).subscribe({
+      next: ((r: any) => {
+        this.loadAccount();
+      }),
+      error: ((r: any) => {
+        this.msg.set(r.error.msg);
+      })
+    })
+  }
+
+  onOrdine(){
+    console.log("ordine");
+    this.routing.navigate(['dash/ordine'])
   }
 }

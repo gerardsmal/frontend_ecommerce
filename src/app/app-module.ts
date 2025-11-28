@@ -22,6 +22,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatBadgeModule } from '@angular/material/badge';
+import {MatStepperModule} from '@angular/material/stepper';
+
+
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
@@ -47,6 +50,7 @@ import { ProdottoDetaglio } from './dialogs/prodotto-detaglio/prodotto-detaglio'
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/it';
 import { AddRowConfirm } from './dialogs/add-row-confirm/add-row-confirm';
+import { Ordine } from './componenti/ordine/ordine';
 
 registerLocaleData(localeIt);
 
@@ -72,6 +76,7 @@ registerLocaleData(localeIt);
     Notfound,
     ProdottoDetaglio,
     AddRowConfirm,
+    Ordine,
 
   ],
   imports: [
@@ -94,7 +99,8 @@ registerLocaleData(localeIt);
     MatDialogModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatStepperModule
 
 
   ],
