@@ -23,6 +23,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatBadgeModule } from '@angular/material/badge';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 
@@ -100,7 +101,8 @@ registerLocaleData(localeIt);
     MatProgressSpinnerModule,
     MatExpansionModule,
     MatBadgeModule,
-    MatStepperModule
+    MatStepperModule,
+    MatCheckboxModule
 
 
   ],

@@ -1,0 +1,39 @@
+.indirizzo-field{
+    width: 400px;
+    margin-left: 20px;
+}
+.select-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.row-button {
+    margin-top: 15px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* DUE colonne */
+  gap: 16px;                     /* spazio orizzontale + verticale */
+  width: 100%;
+}
+
+.form-grid mat-form-field {
+  width: 100%;                  /* ogni campo occupa metà */
+}
+
+/* Responsive: sotto i 600px torna a 1 colonna */
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.accordion-wrapper {
+  width: 50%;
+  max-width: 600px;
+  margin-left: 20px;
+}
+
+
+
