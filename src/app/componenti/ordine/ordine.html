@@ -8,10 +8,10 @@
    
       <mat-form-field appearance="fill" class="indirizzo-field">
         <mat-label>Indirizzi</mat-label>
-        <mat-select name="indirizzo" [(ngModel)]="indirizzo" (selectionChange)="selectIdirizzo()">
+        <mat-select name="indirizzo"[(ngModel)]="indirizzo" (selectionChange)="selectIdirizzo()">
           @for (ind of listaSpedizione; track ind.id) {
           <mat-option [value]="ind.id">
-            {{ ind.nome }} {{ind.cognome}} {{ind.via}} {{ind.commune}}
+            {{ind.isDefault ? '[default] ' : ''}}{{ ind.nome }} {{ind.cognome}} {{ind.via}} {{ind.commune}}
           </mat-option>
           }
         </mat-select>
@@ -24,10 +24,9 @@
     </div>
     @if (creaNuovoIndirizzo){
 
-
     <div class="accordion-wrapper">
       <mat-accordion>
-        <mat-expansion-panel #panel="matExpansionPanel">
+       <mat-expansion-panel #panel="matExpansionPanel" [expanded]="true">
           <mat-expansion-panel-header>
             <mat-panel-title>
               Indirizzo di spedizione
@@ -80,12 +79,42 @@
     }
     <!-- Bottoni dello stepper -->
     <div style="margin-top: 16px;">
-      <button mat-button matStepperNext>
-        Next
+      <button mat-button matStepperNext [disabled]="indirizzo == null">
+        Next 
       </button>
     </div>
 
   </mat-step>
+<mat-step [stepControl]="pagamentoForm">
+  <ng-template matStepLabel>Metodo di pagamento</ng-template>
+
+  <form [formGroup]="pagamentoForm">
+
+    <mat-radio-group formControlName="metodo" class="metodo-group">
+
+      <mat-radio-button *ngFor="let m of metodiPagamento"
+                        [value]="m.value"
+                        class="metodo-option">
+        {{ m.label }}
+      </mat-radio-button>
+
+    </mat-radio-group>
+
+    
+    
+   
+    <div style="margin-top: 16px;">
+      <button mat-raised-button
+              color="primary"
+              type="button"
+              [disabled]="pagamentoForm.invalid"
+              (click)="confermaPagamento(); stepper.next()">
+        Conferma Pagamento
+      </button>
+    </div>
+
+  </form>
+</mat-step>
 
 
   <mat-step>

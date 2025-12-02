@@ -11,7 +11,7 @@ import { AuthService } from '../../auth/auth-service';
 })
 export class Ordine implements OnInit {
   listaSpedizione: any[] = [];
-  indirizzo: any;
+  indirizzo: any = null;
   creaNuovoIndirizzo: boolean = false;
   createForm: FormGroup = new FormGroup({
     nome: new FormControl(null, Validators.required),
@@ -21,18 +21,31 @@ export class Ordine implements OnInit {
     cap: new FormControl(null, Validators.required),
   })
 
+  pagamentoForm = new FormGroup({
+    metodo: new FormControl(null, Validators.required),
+    numeroCarta: new FormControl(null),
+    scadenza: new FormControl(null),
+    cvv: new FormControl(null),
+  });
 
+
+  metodiPagamento = [
+    { value: 'paypal', label: 'PayPal' },
+    { value: 'carta', label: 'Carta di Credito' },
+    { value: 'contrassegno', label: 'Pagamento alla consegna' },
+  ];
 
   constructor(private orderServices: OrderServices,
     private auth: AuthService
   ) { }
 
   ngOnInit(): void {
+    const accountId = this.auth.grant().userId;
     this.orderServices.init({
-      accountId: this.auth.grant().userId
+      accountId: accountId
     }).subscribe({
       next: ((r: any) => {
-        this.orderServices.listSpedizione(this.auth.grant().userId)
+        this.orderServices.listSpedizione(accountId)
           .subscribe({
             next: ((r: any) => {
               console.log(r);
@@ -62,7 +75,10 @@ export class Ordine implements OnInit {
 
   registrazione(panel: any) {
     panel.close();
-    this.creaNuovoIndirizzo=false;
+    this.creaNuovoIndirizzo = false;
   }
 
+  confermaPagamento() {
+    console.log("Metodo scelto:", this.pagamentoForm.value.metodo);
+  }
 }
