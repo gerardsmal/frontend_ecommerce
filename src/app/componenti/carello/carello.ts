@@ -3,6 +3,7 @@ import { AccountServices } from '../../services/account-services';
 import { AuthService } from '../../auth/auth-service';
 import { CarrelloServices } from '../../services/carrello-services';
 import { Router } from '@angular/router';
+import { OrderServices } from '../../services/order-services';
 
 interface RigaCarello {
   id: number;
@@ -38,6 +39,7 @@ export class Carello implements OnInit {
     private accountServices: AccountServices,
     private auth: AuthService,
     private carelloServices: CarrelloServices,
+    private orderServices:OrderServices,
     private routing:Router
   ) { }
 
@@ -96,6 +98,17 @@ export class Carello implements OnInit {
 
   onOrdine(){
     console.log("ordine");
-    this.routing.navigate(['dash/ordine'])
+
+    const accountId = this.auth.grant().userId;
+    this.orderServices.init({      // initialize order
+      accountId: accountId
+    }).subscribe({
+      next:((r:any) => {
+        this.routing.navigate(['dash/ordine'])
+      }),
+      error:((r:any) => {
+        this.msg.set(r.error.msg)
+      })
+    })
   }
 }

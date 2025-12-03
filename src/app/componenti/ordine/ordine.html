@@ -9,7 +9,7 @@
       <mat-form-field appearance="fill" class="indirizzo-field">
         <mat-label>Indirizzi</mat-label>
         <mat-select name="indirizzo"[(ngModel)]="indirizzo" (selectionChange)="selectIdirizzo()">
-          @for (ind of listaSpedizione; track ind.id) {
+          @for (ind of listaSpedizione(); track ind.id) {
           <mat-option [value]="ind.id">
             {{ind.isDefault ? '[default] ' : ''}}{{ ind.nome }} {{ind.cognome}} {{ind.via}} {{ind.commune}}
           </mat-option>

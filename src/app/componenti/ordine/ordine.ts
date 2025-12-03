@@ -10,7 +10,7 @@ import { AuthService } from '../../auth/auth-service';
   styleUrl: './ordine.css',
 })
 export class Ordine implements OnInit {
-  listaSpedizione: any[] = [];
+  listaSpedizione = signal<any[]>([]);
   indirizzo: any = null;
   creaNuovoIndirizzo: boolean = false;
   createForm: FormGroup = new FormGroup({
@@ -41,25 +41,16 @@ export class Ordine implements OnInit {
 
   ngOnInit(): void {
     const accountId = this.auth.grant().userId;
-    this.orderServices.init({
-      accountId: accountId
-    }).subscribe({
-      next: ((r: any) => {
-        this.orderServices.listSpedizione(accountId)
-          .subscribe({
-            next: ((r: any) => {
-              console.log(r);
-              this.listaSpedizione = r;
-            }),
-            error: ((r: any) => {
-              console.log("errore:" + r.error.msg)
-            })
-          })
-      }),
-      error: ((r: any) => {
-        console.log("errore:" + r.error.msg)
+    this.orderServices.listSpedizione(accountId)
+      .subscribe({
+        next: ((r:any) => {
+          this.listaSpedizione.set(r);
+          console.log(r);
+        }),
+        error:((r:any) => {
+          console.log(r.error.msg);
+        }) 
       })
-    })
 
   }
 
