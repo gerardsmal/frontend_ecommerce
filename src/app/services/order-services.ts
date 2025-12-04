@@ -6,18 +6,26 @@ import { ConfigServices } from './config-services';
   providedIn: 'root',
 })
 export class OrderServices {
-  
-  constructor(private http:HttpClient,
-              private config:ConfigServices
-  ){}
 
-  init(body:{}){
+  constructor(private http: HttpClient,
+    private config: ConfigServices
+  ) { }
+
+  init(body: {}) {
     return this.http.post(this.config.backendURL() + "order/init", body);
   }
 
-  listSpedizione(accountID:any){
-     let params = new HttpParams().set('id', accountID );
-    return this.http.get(this.config.backendURL() + "order/listSpedizione", { params} );
+  listSpedizione(accountID: any) {
+    let params = new HttpParams().set('id', accountID);
+    return this.http.get(this.config.backendURL() + "order/listSpedizione", { params });
+  }
 
+  getSpedizione(id: any) {
+    let params = new HttpParams().set('id', id);
+    return this.http.get(this.config.backendURL() + "order/getSpedizione", { params });
+  }
+
+  createSpedizione(body: any) {
+    return this.http.post(this.config.backendURL() + "order/createSpedizione", body);
   }
 }

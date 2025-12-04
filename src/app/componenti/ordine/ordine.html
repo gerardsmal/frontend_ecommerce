@@ -5,10 +5,10 @@
   <mat-step>
     <ng-template matStepLabel>Dati di spedizione</ng-template>
     <div class="select-row">
-   
+
       <mat-form-field appearance="fill" class="indirizzo-field">
         <mat-label>Indirizzi</mat-label>
-        <mat-select name="indirizzo"[(ngModel)]="indirizzo" (selectionChange)="selectIdirizzo()">
+        <mat-select name="indirizzo" [(ngModel)]="indirizzo" (selectionChange)="selectIdirizzo(); stepper.next()">
           @for (ind of listaSpedizione(); track ind.id) {
           <mat-option [value]="ind.id">
             {{ind.isDefault ? '[default] ' : ''}}{{ ind.nome }} {{ind.cognome}} {{ind.via}} {{ind.commune}}
@@ -23,10 +23,9 @@
 
     </div>
     @if (creaNuovoIndirizzo){
-
     <div class="accordion-wrapper">
       <mat-accordion>
-       <mat-expansion-panel #panel="matExpansionPanel" [expanded]="true">
+        <mat-expansion-panel #panel="matExpansionPanel" [expanded]="true">
           <mat-expansion-panel-header>
             <mat-panel-title>
               Indirizzo di spedizione
@@ -63,6 +62,11 @@
               </mat-form-field>
             </div>
 
+            <div class="msg-error">
+              <span style="color:red">{{ msg() }}</span>
+            </div>
+
+
             <div style="margin-top: 16px;">
               <button mat-raised-button color="primary" type="button" [disabled]="createForm.invalid"
                 (click)="registrazione(panel)">
@@ -80,46 +84,57 @@
     <!-- Bottoni dello stepper -->
     <div style="margin-top: 16px;">
       <button mat-button matStepperNext [disabled]="indirizzo == null">
-        Next 
+        Next
       </button>
     </div>
 
   </mat-step>
-<mat-step [stepControl]="pagamentoForm">
-  <ng-template matStepLabel>Metodo di pagamento</ng-template>
+  <mat-step [stepControl]="pagamentoForm">
+    <ng-template matStepLabel>Metodo di pagamento</ng-template>
 
-  <form [formGroup]="pagamentoForm">
+    <form [formGroup]="pagamentoForm">
 
-    <mat-radio-group formControlName="metodo" class="metodo-group">
+      <mat-radio-group formControlName="metodo" class="metodo-group">
+        @for (m of metodiPagamento; track m.id){
+        <mat-radio-button [value]="m.id" class="metodo-option">
+          {{ m.tipo }}
+        </mat-radio-button>
+        }
+      </mat-radio-group>
 
-      <mat-radio-button *ngFor="let m of metodiPagamento"
-                        [value]="m.value"
-                        class="metodo-option">
-        {{ m.label }}
-      </mat-radio-button>
+      <div style="margin-top: 16px;">
+        <button mat-raised-button color="primary" type="button" [disabled]="pagamentoForm.invalid"
+          (click)="confermaPagamento(); stepper.next()">
+          Conferma Pagamento
+        </button>
+      </div>
 
-    </mat-radio-group>
+    </form>
 
-    
-    
-   
-    <div style="margin-top: 16px;">
-      <button mat-raised-button
-              color="primary"
-              type="button"
-              [disabled]="pagamentoForm.invalid"
-              (click)="confermaPagamento(); stepper.next()">
-        Conferma Pagamento
-      </button>
+    <div>
+      <button matButton matStepperPrevious>Back</button>
+      <button matButton matStepperNext>Next</button>
     </div>
 
-  </form>
-</mat-step>
+  </mat-step>
 
 
   <mat-step>
     <ng-template matStepLabel>Riassunto</ng-template>
-    facciamo il controllo dei dati (indirizzo, carrello, modalità di pagamento)
+
+    <div style="margin-top: 16px;">
+      <button mat-raised-button color="primary" type="button" (click)="anteprima()">
+        visulizzazione del anteprima del ordine per confirmazione
+      </button>
+    </div>
+
+
+    <!--
+    <span>Indirizzo spedizione: <strong>{{indirizzoSelected()?.nome}} {{indirizzoSelected()?.cognome}}</strong> 
+        {{indirizzoSelected()?.via}} {{indirizzoSelected()?.commune}} {{indirizzoSelected()?.cap}}</span>
+
+     <span>Modalità di pagamento : <strong>{{pagamentoSelected()?.tipo}}</strong></span> 
+     -->
     <div>
       <button matButton matStepperPrevious>Back</button>
       <button matButton matStepperNext>Next</button>

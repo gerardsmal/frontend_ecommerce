@@ -1,0 +1,71 @@
+  <button mat-icon-button mat-dialog-close class="dialog-close-btn">
+        <mat-icon>close</mat-icon>
+    </button>
+  
+<h1 class="dialog-title">Anteprima</h1>
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+
+  <div class="preview-box">
+
+    <div class="summary-section">
+      <h3>Indirizzo di spedizione</h3>
+      <p>
+        <strong>{{ indirizzoSpedizione.nome }} {{ indirizzoSpedizione.cognome }}</strong><br>
+        {{ indirizzoSpedizione.via }}<br>
+        {{ indirizzoSpedizione.commune }} {{ indirizzoSpedizione.cap }}
+      </p>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="summary-section">
+      <h3>Metodo di pagamento</h3>
+      <p><strong>{{ modalidaPagamento.tipo }}</strong></p>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <table class="table table-stripped">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Nome</th>
+          <th>Artista</th>
+          <th>Supporto</th>
+          <th>Prezzo</th>
+          <th>Quantità</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (riga of carrello?.riga ?? []; track riga.id) {
+          <tr class="cart-row">
+            <td class="cart-cell image-cell">
+              <img [src]="riga.image || 'no-image.jpg'" />
+            </td>
+            <td class="cart-cell">{{ riga.productName }}</td>
+            <td class="cart-cell">{{ riga.artist }}</td>
+            <td class="cart-cell">{{ riga.supporto }}</td>
+            <td class="cart-cell">{{ riga.prezzo | currency:'EUR' }}</td>
+            <td class="cart-cell">{{ riga.quantita }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    <mat-divider></mat-divider>
+
+    <div class="total-box">
+      Prezzo totale: {{ carrello?.prezzoTotale | currency:'EUR' }}
+    </div>
+
+    <!-- 🔹 Bottoni centrati -->
+    <div class="summary-buttons">
+      <button mat-stroked-button color="primary" type="button">Eseguire ordine</button>
+      <button mat-stroked-button color="accent" type="button">Rivedere il carrello</button>
+    </div>
+
+  </div>
+
+</mat-dialog-content>

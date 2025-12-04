@@ -52,6 +52,7 @@ import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/it';
 import { AddRowConfirm } from './dialogs/add-row-confirm/add-row-confirm';
 import { Ordine } from './componenti/ordine/ordine';
+import { OderAnteprima } from './dialogs/oder-anteprima/oder-anteprima';
 
 registerLocaleData(localeIt);
 
@@ -78,6 +79,7 @@ registerLocaleData(localeIt);
     ProdottoDetaglio,
     AddRowConfirm,
     Ordine,
+    OderAnteprima,
 
   ],
   imports: [
