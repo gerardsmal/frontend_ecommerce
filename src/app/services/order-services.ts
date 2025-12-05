@@ -11,6 +11,11 @@ export class OrderServices {
     private config: ConfigServices
   ) { }
 
+  orderStatus(id: any) {
+    let params = new HttpParams().set('id', id);
+    return this.http.get(this.config.backendURL() + "order/orderStatus", { params });
+  }
+
   init(body: {}) {
     return this.http.post(this.config.backendURL() + "order/init", body);
   }
@@ -27,5 +32,9 @@ export class OrderServices {
 
   createSpedizione(body: any) {
     return this.http.post(this.config.backendURL() + "order/createSpedizione", body);
+  }
+
+  create(body: {}) {
+    return this.http.post(this.config.backendURL() + "order/create", body);
   }
 }

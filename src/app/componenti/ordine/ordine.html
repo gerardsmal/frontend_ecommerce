@@ -1,6 +1,31 @@
 <h1>Ordine</h1>
 <mat-vertical-stepper [linear]="true" #stepper [animationDuration]="duration">
+  <mat-step>
+    <ng-template matStepLabel>Validazione stato ordine</ng-template>
+    <div style="margin-top: 16px;">
+      <button mat-raised-button color="primary" (click)="controlStatus()" type="button">
+        Controllo status ordine
+      </button>
+    </div>
+    @if (!msgOrdine().isOK){
+    <div class="msg-ordine">
+      <span>{{ msgOrdine().msg }}</span>
+    </div>
+    <div class="order-buttons">
+      <button mat-raised-button color="primary" type="button" (click)="removeOrdine()">
+        Cancella Ordine
+      </button>
+      <button mat-raised-button color="primary" type="button" (click)="conclude()">
+        Conclude Ordine
+      </button>
+    </div>
 
+
+
+    }
+
+
+  </mat-step>
 
   <mat-step>
     <ng-template matStepLabel>Dati di spedizione</ng-template>
@@ -128,13 +153,6 @@
       </button>
     </div>
 
-
-    <!--
-    <span>Indirizzo spedizione: <strong>{{indirizzoSelected()?.nome}} {{indirizzoSelected()?.cognome}}</strong> 
-        {{indirizzoSelected()?.via}} {{indirizzoSelected()?.commune}} {{indirizzoSelected()?.cap}}</span>
-
-     <span>Modalità di pagamento : <strong>{{pagamentoSelected()?.tipo}}</strong></span> 
-     -->
     <div>
       <button matButton matStepperPrevious>Back</button>
       <button matButton matStepperNext>Next</button>
@@ -144,7 +162,36 @@
 
   <mat-step>
     <ng-template matStepLabel>Invio ordine</ng-template>
-    invio dell'ordine con risposta stato
-    <div></div>
+    <div style="margin-top: 16px;">
+      <button mat-raised-button color="primary" type="button" (click)="createOrdine()">
+        Creazione del ordine
+      </button>
+
+      <div class="msg-ordine" [ngClass]="{'msg-ordine-normal' : msgOrdine().isOK , 'msg-ordine-error' : !msgOrdine().isOK}">
+        <span>{{ msgOrdine().msg }}</span>
+      </div>
+
+    </div>
+    <div>
+      <button matButton matStepperPrevious>Back</button>
+      <button matButton (click)="nextStep()">Next..</button>
+    </div>
   </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Conferma ordine</ng-template>
+    <div style="margin-top: 16px;">
+      <button mat-raised-button color="primary" type="button" (click)="confermaOrdine()">
+        Conferma del ordine
+      </button>
+      @if (msgOrdine().msg != ''){
+      <div class="msg-ordine">
+        <span>{{ msgOrdine().msg }}</span>
+      </div>
+      }
+
+
+    </div>
+  </mat-step>
+
 </mat-vertical-stepper>

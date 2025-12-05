@@ -23,6 +23,12 @@ export class Ordine implements OnInit {
 
   listaSpedizione = signal<any[]>([]);
   msg = signal("");
+
+  msgOrdine = signal({
+    isOK: true,
+    msg: ""
+  })
+
   indirizzo: any = null;
   indirizzoSelected = signal<any>(null);
   creaNuovoIndirizzo: boolean = false;
@@ -51,7 +57,7 @@ export class Ordine implements OnInit {
     private pagamentoServices: PagamentoServices,
     private auth: AuthService,
     private accountService: AccountServices,
-    private rounting:Router
+    private rounting: Router
   ) { }
 
   ngOnInit(): void {
@@ -68,9 +74,39 @@ export class Ordine implements OnInit {
       })
   }
 
+  controlStatus() {
+    this.orderServices.orderStatus(this.accountId)
+      .subscribe({
+        next: ((r: any) => {
+          if (r.msg) {
+            this.stepper.next();
+          } else {
+            this.msgOrdine.set({
+              isOK: false,
+              msg: 'Ultimo ordine non concluso.'
+            })
+          }
+        }),
+        error: ((r: any) => {
+          console.log("errore in orderStatus:" + r.error.msg);
+        })
+      })
+  }
 
+  removeOrdine() {
 
+  }
 
+  conclude() {
+    this.msgOrdine.set({
+      isOK: true,
+      msg: ''
+    })
+
+    this.stepper.linear = false;
+    this.stepper.selectedIndex = this.stepper.steps.length - 1;
+    this.stepper.linear = true;
+  }
   selectIdirizzo() {
     this.orderServices.getSpedizione(this.indirizzo)
       .subscribe({
@@ -164,7 +200,7 @@ export class Ordine implements OnInit {
       },
       panelClass: 'wide-dialog'
     });
-      dialogRef.afterClosed()
+    dialogRef.afterClosed()
       .subscribe(r => {
         if (r == 'ordine') {
           console.log("esegue l'ordine");
@@ -174,7 +210,41 @@ export class Ordine implements OnInit {
           console.log("carrello");
           this.rounting.navigate(['dash/carello'])
         }
- 
+
       })
   }
+
+  createOrdine() {
+    this.orderServices.create({
+      accountID: this.accountId,
+      spedizioneID: this.indirizzoSelected().id,
+      modalitaID: this.pagamentoSelected().id
+    }).subscribe({
+      next: ((r: any) => {
+        this.msgOrdine.set({
+          isOK: true,
+          msg: r.msg
+        })
+      }),
+      error: ((r: any) => {
+        this.msgOrdine.set(r.error.msg);
+        this.msgOrdine.set({
+          isOK: false,
+          msg: r.error.msg
+        })
+      })
+    })
+  }
+  nextStep() {
+    console.log('next step...');
+    this.msgOrdine.set({
+      isOK: true,
+      msg: ""
+    })
+    this.stepper.next();
+  }
+  confermaOrdine() {
+    console.log("eseguo conferma ordine..")
+  }
+
 }
