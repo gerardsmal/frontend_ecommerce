@@ -24,4 +24,8 @@ export class OderAnteprima {
     }
 
   }
+
+  selectRC(opt:any){
+    this.dialogRef.close(opt);
+  }
 }

@@ -62,8 +62,8 @@
 
     <!-- 🔹 Bottoni centrati -->
     <div class="summary-buttons">
-      <button mat-stroked-button color="primary" type="button">Eseguire ordine</button>
-      <button mat-stroked-button color="accent" type="button">Rivedere il carrello</button>
+      <button mat-stroked-button color="primary"  (click)="selectRC('ordine')"   type="button">Eseguire ordine</button>
+      <button mat-stroked-button color="accent"  (click)="selectRC('carrello')"  type="button">Rivedere il carrello</button>
     </div>
 
   </div>

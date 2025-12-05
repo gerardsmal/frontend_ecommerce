@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { OrderServices } from '../../services/order-services';
 import { AuthService } from '../../auth/auth-service';
@@ -6,6 +6,8 @@ import { PagamentoServices } from '../../services/pagamento-services';
 import { MatDialog } from '@angular/material/dialog';
 import { OderAnteprima } from '../../dialogs/oder-anteprima/oder-anteprima';
 import { AccountServices } from '../../services/account-services';
+import { Router } from '@angular/router';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-ordine',
@@ -14,6 +16,9 @@ import { AccountServices } from '../../services/account-services';
   styleUrl: './ordine.css',
 })
 export class Ordine implements OnInit {
+
+  @ViewChild('stepper') stepper!: MatStepper;
+
   duration = '1000'
 
   listaSpedizione = signal<any[]>([]);
@@ -45,7 +50,8 @@ export class Ordine implements OnInit {
   constructor(private orderServices: OrderServices,
     private pagamentoServices: PagamentoServices,
     private auth: AuthService,
-    private accountService: AccountServices
+    private accountService: AccountServices,
+    private rounting:Router
   ) { }
 
   ngOnInit(): void {
@@ -158,6 +164,17 @@ export class Ordine implements OnInit {
       },
       panelClass: 'wide-dialog'
     });
-
+      dialogRef.afterClosed()
+      .subscribe(r => {
+        if (r == 'ordine') {
+          console.log("esegue l'ordine");
+          this.stepper.next();
+        }
+        if (r == 'carrello') {
+          console.log("carrello");
+          this.rounting.navigate(['dash/carello'])
+        }
+ 
+      })
   }
 }
