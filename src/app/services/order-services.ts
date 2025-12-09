@@ -37,4 +37,16 @@ export class OrderServices {
   create(body: {}) {
     return this.http.post(this.config.backendURL() + "order/create", body);
   }
+
+  confirm(body:any){
+    return this.http.put(this.config.backendURL() + "order/confirm", body);
+  }
+  delete(id:any){
+    return this.http.delete(this.config.backendURL() + "order/delete/" + id);
+  }
+
+  orderDetails(id:any){
+    let params = new HttpParams().set('id', id);
+    return this.http.get(this.config.backendURL() + "order/lastOrder", { params });
+  }
 }

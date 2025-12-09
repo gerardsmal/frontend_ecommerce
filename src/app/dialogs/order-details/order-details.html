@@ -1,0 +1,67 @@
+  <button mat-icon-button mat-dialog-close class="dialog-close-btn">
+        <mat-icon>close</mat-icon>
+    </button>
+  
+<h1 class="dialog-title">Detaglio Ordine numero: {{order.numeroOrdine}}</h1>
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+
+  <div class="preview-box">
+
+    <div class="summary-section">
+      <h3>Data Ordine : {{order.dataOrdine | date: 'dd/MM/yyyy'}}. status: {{order.status}}</h3>
+        
+      <h3>Indirizzo di spedizione</h3>
+      <p>
+        <strong>{{ order.spedizione.nome }} {{ order.spedizione.cognome }}</strong><br>
+        {{ order.spedizione.via }}<br>
+        {{ order.spedizione.commune }} {{ order.spedizione.cap }}
+      </p>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="summary-section">
+      <h3>Metodo di pagamento</h3>
+      <p><strong>{{ order.modalitaPagamento }}</strong></p>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <table class="table table-stripped">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Nome</th>
+          <th>Artista</th>
+          <th>Supporto</th>
+          <th>Prezzo</th>
+          <th>Quantità</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (riga of order?.riga ?? []; track riga.id) {
+          <tr class="cart-row">
+            <td class="cart-cell image-cell">
+              <img [src]="riga.image || 'no-image.jpg'" />
+            </td>
+            <td class="cart-cell">{{ riga.productName }}</td>
+            <td class="cart-cell">{{ riga.artist }}</td>
+            <td class="cart-cell">{{ riga.supporto }}</td>
+            <td class="cart-cell">{{ riga.prezzo | currency:'EUR' }}</td>
+            <td class="cart-cell">{{ riga.quantita }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    <mat-divider></mat-divider>
+
+    <div class="total-box">
+      Prezzo totale: {{ order?.prezzoTotale | currency:'EUR' }}
+    </div>
+ 
+  </div>
+
+</mat-dialog-content>

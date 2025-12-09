@@ -8,6 +8,7 @@ import { OderAnteprima } from '../../dialogs/oder-anteprima/oder-anteprima';
 import { AccountServices } from '../../services/account-services';
 import { Router } from '@angular/router';
 import { MatStepper } from '@angular/material/stepper';
+import { OrderDetails } from '../../dialogs/order-details/order-details';
 
 @Component({
   selector: 'app-ordine',
@@ -94,6 +95,17 @@ export class Ordine implements OnInit {
   }
 
   removeOrdine() {
+    this.orderServices.delete(this.accountId)
+      .subscribe({
+        next: ((r: any) => {
+          this.rounting.navigate(['dash/carello'])
+        }),
+        error: ((r: any) => {
+          console.log("errore nella cancelazione:" + r.error.msg);
+        })
+      })
+
+
 
   }
 
@@ -245,6 +257,42 @@ export class Ordine implements OnInit {
   }
   confermaOrdine() {
     console.log("eseguo conferma ordine..")
+    this.orderServices.confirm({
+      accountID: this.accountId
+    }).subscribe({
+      next: ((r: any) => {
+        this.auth.setCarelloSize(0);
+        this.callDetails(r);
+      }),
+      error: ((r: any) => {
+        this.msgOrdine.set({
+          isOK: false,
+          msg: r.error.msg
+        })
+
+      })
+    })
+
   }
 
+  private callDetails(order: any) {
+    const enterAnimationDuration: string = '500ms';
+    const exitAnimationDuration: string = '500ms';
+    const dialogRef = this.dialog.open(OrderDetails, {
+      width: '1100px',
+      maxWidth: '90vw',
+      height: 'auto',
+      maxHeight: '200v',
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
+      data: {
+        order: order
+      },
+      panelClass: 'wide-dialog'
+    });
+  }
+
+
+
+ 
 }

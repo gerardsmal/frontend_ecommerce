@@ -167,7 +167,8 @@
         Creazione del ordine
       </button>
 
-      <div class="msg-ordine" [ngClass]="{'msg-ordine-normal' : msgOrdine().isOK , 'msg-ordine-error' : !msgOrdine().isOK}">
+      <div class="msg-ordine"
+        [ngClass]="{'msg-ordine-normal' : msgOrdine().isOK , 'msg-ordine-error' : !msgOrdine().isOK}">
         <span>{{ msgOrdine().msg }}</span>
       </div>
 
@@ -184,8 +185,10 @@
       <button mat-raised-button color="primary" type="button" (click)="confermaOrdine()">
         Conferma del ordine
       </button>
-      @if (msgOrdine().msg != ''){
-      <div class="msg-ordine">
+      @if (!msgOrdine().isOK){
+        
+      <div class="msg-ordine"
+        [ngClass]="{'msg-ordine-normal' : msgOrdine().isOK , 'msg-ordine-error' : !msgOrdine().isOK}">
         <span>{{ msgOrdine().msg }}</span>
       </div>
       }
