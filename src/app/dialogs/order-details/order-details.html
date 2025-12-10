@@ -36,8 +36,9 @@
           <th>Nome</th>
           <th>Artista</th>
           <th>Supporto</th>
-          <th>Prezzo</th>
+          <th>Prezzo Unitario</th>
           <th>Quantità</th>
+          <th>Prezzo da pagare</th>
         </tr>
       </thead>
       <tbody>
@@ -49,8 +50,9 @@
             <td class="cart-cell">{{ riga.productName }}</td>
             <td class="cart-cell">{{ riga.artist }}</td>
             <td class="cart-cell">{{ riga.supporto }}</td>
-            <td class="cart-cell">{{ riga.prezzo | currency:'EUR' }}</td>
+            <td class="cart-cell">{{ riga.prezzoUnitario | currency:'EUR' }}</td>
             <td class="cart-cell">{{ riga.quantita }}</td>
+            <td class="cart-cell">{{ riga.prezzoDaPagare | currency:'EUR' }}</td>
           </tr>
         }
       </tbody>

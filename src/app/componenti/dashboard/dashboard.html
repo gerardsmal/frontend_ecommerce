@@ -13,25 +13,25 @@
 
   <span class="example-spacer"></span>
   @if (auth.grant().isLogged){
-<button mat-icon-button
-        class="example-icon"
-        aria-label="Home"
-        matTooltip="Home Page"
-        [routerLink]="['/dash','home']">
-  <mat-icon>home</mat-icon>
-</button>
+  <button mat-icon-button class="example-icon" aria-label="Home" matTooltip="Home Page" [routerLink]="['/dash','home']">
+    <mat-icon>home</mat-icon>
+  </button>
 
-
-  <button mat-icon-button
-        class="example-icon"
-        matBadge="{{auth.grant().carelloSize}}"
-        aria-label="Carrello"
-        matTooltip="Carrello"
-        [routerLink]="['/dash','carello']">
-  <mat-icon>
-    <img src="cart.svg" />
-  </mat-icon>
-</button>
+  @if ((auth.grant().orderSize ?? 0) > 0){
+  <button mat-icon-button class="example-icon" aria-label="Ordine" matTooltip="Elenco ordini effetuati"
+    matBadge="{{auth.grant().orderSize}}"
+    [routerLink]="['/dash','gestioneOrdine']">
+    <mat-icon>
+      <img src="order.png">
+    </mat-icon>
+  </button>
+  }
+  <button mat-icon-button class="example-icon" matBadge="{{auth.grant().carelloSize}}" aria-label="Carrello"
+    matTooltip="Carrello" [routerLink]="['/dash','carello']">
+    <mat-icon>
+      <img src="cart.svg" />
+    </mat-icon>
+  </button>
 
   }
 

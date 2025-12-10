@@ -20,7 +20,6 @@ export class OderAnteprima {
       this.indirizzoSpedizione=data.indirizzoSpedizione;
       this.modalidaPagamento = data.modalidaPagamento;
       this.carrello = data.carrello;
-      console.log(this.carrello)
     }
 
   }

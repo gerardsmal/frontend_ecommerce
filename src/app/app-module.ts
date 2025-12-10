@@ -54,6 +54,7 @@ import { AddRowConfirm } from './dialogs/add-row-confirm/add-row-confirm';
 import { Ordine } from './componenti/ordine/ordine';
 import { OderAnteprima } from './dialogs/oder-anteprima/oder-anteprima';
 import { OrderDetails } from './dialogs/order-details/order-details';
+import { GestioneOrdine } from './componenti/gestione-ordine/gestione-ordine';
 
 registerLocaleData(localeIt);
 
@@ -82,6 +83,7 @@ registerLocaleData(localeIt);
     Ordine,
     OderAnteprima,
     OrderDetails,
+    GestioneOrdine,
 
   ],
   imports: [

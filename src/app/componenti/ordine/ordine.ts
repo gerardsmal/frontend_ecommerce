@@ -3,12 +3,13 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { OrderServices } from '../../services/order-services';
 import { AuthService } from '../../auth/auth-service';
 import { PagamentoServices } from '../../services/pagamento-services';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { OderAnteprima } from '../../dialogs/oder-anteprima/oder-anteprima';
 import { AccountServices } from '../../services/account-services';
 import { Router } from '@angular/router';
 import { MatStepper } from '@angular/material/stepper';
 import { OrderDetails } from '../../dialogs/order-details/order-details';
+import { ComponentType } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-ordine',
@@ -176,7 +177,23 @@ export class Ordine implements OnInit {
     this.accountService.getAccount(this.accountId)
       .subscribe({
         next: ((r: any) => {
-          this.callDialog(r.carello)
+          console.log(r)
+          // passagggio del parametri per la funziona generalizzata
+          const dialogRef = this.openDialog(OderAnteprima, {
+            indirizzoSpedizione: this.indirizzoSelected(),
+            modalidaPagamento: this.pagamentoSelected(),
+            carrello: r.carello
+          });
+          dialogRef.afterClosed().subscribe(r => {
+            if (r === 'ordine') {
+              console.log("esegue l'ordine");
+              this.stepper.next();
+            }
+            if (r === 'carrello') {
+              console.log("carrello");
+              this.rounting.navigate(['dash/carello']);
+            }
+          });
         }),
         error: ((r: any) => console.log('error account:' + r.err.msg))
       })
@@ -194,38 +211,9 @@ export class Ordine implements OnInit {
         })
       })
 
-  }
-  private callDialog(carrelo: any) {
-    const enterAnimationDuration: string = '500ms';
-    const exitAnimationDuration: string = '500ms';
-    const dialogRef = this.dialog.open(OderAnteprima, {
-      width: '1100px',
-      maxWidth: '90vw',
-      height: 'auto',
-      maxHeight: '200v',
-      enterAnimationDuration: '500ms',
-      exitAnimationDuration: '500ms',
-      data: {
-        indirizzoSpedizione: this.indirizzoSelected(),
-        modalidaPagamento: this.pagamentoSelected(),
-        carrello: carrelo
-      },
-      panelClass: 'wide-dialog'
-    });
-    dialogRef.afterClosed()
-      .subscribe(r => {
-        if (r == 'ordine') {
-          console.log("esegue l'ordine");
-          this.stepper.next();
-        }
-        if (r == 'carrello') {
-          console.log("carrello");
-          this.rounting.navigate(['dash/carello'])
-        }
-
-      })
-  }
-
+  
+    }
+ 
   createOrdine() {
     this.orderServices.create({
       accountID: this.accountId,
@@ -237,6 +225,9 @@ export class Ordine implements OnInit {
           isOK: true,
           msg: r.msg
         })
+        let orderSize = this.auth.grant().orderSize ?? 0;
+        this.auth.setOrderSize(orderSize + 1);
+        this.stepper.next();
       }),
       error: ((r: any) => {
         this.msgOrdine.set(r.error.msg);
@@ -255,6 +246,7 @@ export class Ordine implements OnInit {
     })
     this.stepper.next();
   }
+
   confermaOrdine() {
     console.log("eseguo conferma ordine..")
     this.orderServices.confirm({
@@ -262,7 +254,13 @@ export class Ordine implements OnInit {
     }).subscribe({
       next: ((r: any) => {
         this.auth.setCarelloSize(0);
-        this.callDetails(r);
+        const dialogRef = this.openDialog(OrderDetails, {
+          order: r
+        });
+        dialogRef.afterClosed()
+          .subscribe(() => {
+            this.rounting.navigate(['dash/home']);
+          })
       }),
       error: ((r: any) => {
         this.msgOrdine.set({
@@ -275,24 +273,36 @@ export class Ordine implements OnInit {
 
   }
 
-  private callDetails(order: any) {
-    const enterAnimationDuration: string = '500ms';
-    const exitAnimationDuration: string = '500ms';
-    const dialogRef = this.dialog.open(OrderDetails, {
+  /**
+   * chiamate generalizzato d'un dialog usando generics di Typescript
+   * T = tipo del componente del dialog
+   * D = tipo dei dati passati (data)
+   * R = tipo del valore ritornato da afterClosed()
+   */
+  private openDialog<T, D = any, R = any>(
+    component: ComponentType<T>,
+    data?: D,
+    config?: MatDialogConfig<D>
+  ): MatDialogRef<T, R> {
+
+    const baseConfig: MatDialogConfig<D> = {
       width: '1100px',
       maxWidth: '90vw',
       height: 'auto',
       maxHeight: '200v',
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '500ms',
-      data: {
-        order: order
-      },
-      panelClass: 'wide-dialog'
+      panelClass: 'wide-dialog',
+      data
+    };
+
+    return this.dialog.open<T, D, R>(component, {
+      ...baseConfig,
+      ...config   // se vuoi sovrascrivere qualcosa di specifico
     });
   }
+  //////
 
 
 
- 
 }

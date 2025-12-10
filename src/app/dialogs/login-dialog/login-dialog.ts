@@ -31,7 +31,7 @@ export class LoginDialog {
     }).subscribe({
       next: (resp: any) => {
         this.msg.set("");
-        this.auth.setAutentificated(resp.userID, resp.userName , resp.carrelloSize);
+        this.auth.setAutentificated(resp.userID, resp.userName , resp.carrelloSize , resp.orderSize);
         if (resp.role == 'ADMIN') this.auth.setAdmin();
         if (resp.role == 'USER') this.auth.setUser();
 
