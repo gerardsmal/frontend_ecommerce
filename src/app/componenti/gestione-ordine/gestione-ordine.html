@@ -1,1 +1,83 @@
-<p>gestione-ordine works!</p>
+<div class="container">
+    <mat-card class="example-card" appearance="outlined">
+        <mat-card-header class="header-row">
+            <mat-card-title>Lista Ordini</mat-card-title>
+        </mat-card-header>
+        <mat-divider style="margin-top: 20px;"></mat-divider>
+        <mat-card-content>
+            <div class="search-row">
+                <mat-form-field>
+                    <mat-label>Nome</mat-label>
+                    <input matInput placeholder="nome" [(ngModel)]="nome">
+                    @if (nome){
+                    <button mat-icon-button matSuffix (click)="nome = null" matTooltip="Cancella">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    }
+
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Artita</mat-label>
+                    <input matInput placeholder="artista" [(ngModel)]="artista">
+                    @if (artista){
+                    <button mat-icon-button matSuffix (click)="artista = null" matTooltip="Cancella">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    }
+
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Genere</mat-label>
+                    <input matInput placeholder="genere" [(ngModel)]="genere">
+                    @if (genere){
+                    <button mat-icon-button matSuffix (click)="genere = null" matTooltip="Cancella">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    }
+
+                </mat-form-field>
+
+                <span class="spacer"></span>
+                <button mat-raised-button color="accent" (click)="search()"
+                    matTooltip="ricerca con criteri">Cerca</button>
+            </div>
+            <mat-divider></mat-divider>
+            <div>
+                <table class="table table-stripped ">
+                    <thead>
+                        <tr>
+                            <th>Numero ordine</th>
+                            <th>Data Ordine</th>
+                            <th>Data Invio</th>
+                            <th>Status</th>
+                            <th>Prezzo totale</th>
+                            <th>Modalita di pagamento</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (ord of ordini(); track ord.id) {
+                        <tr (click)="onSelectedOrdine(ord)" class="clickable-row">
+                            <td align="center">{{ord.numeroOrdine}}</td>
+                            <td>{{ord.dataOrdine | date:'dd/MM/yyyy'}}</td>
+                            <td>{{ord.dataInvio | date:'dd/MM/yyyy'}}</td>
+                            <td>{{ord.status}}</td>
+                            <td>{{ord.prezzoTotale | currency: 'EUR'}}</td>
+                            <td>{{ord.modalitaPagamento}}</td>
+
+                        </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+
+            </div>
+
+
+
+        </mat-card-content>
+    </mat-card>
+</div>

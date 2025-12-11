@@ -49,4 +49,14 @@ export class OrderServices {
     let params = new HttpParams().set('id', id);
     return this.http.get(this.config.backendURL() + "order/lastOrder", { params });
   }
+
+  list(id:any, nome?:any, artist?:any, genere?:any){
+    let params = new HttpParams().set("id", id);
+    if (nome) params = params.set('product', nome);
+    if (artist) params = params.set('artist', artist);
+    if (genere) params = params.set('genere', genere);
+
+    return this.http.get(this.config.backendURL() + "order/list" , { params});
+ 
+  }
 }

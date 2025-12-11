@@ -289,7 +289,7 @@ export class Ordine implements OnInit {
       width: '1100px',
       maxWidth: '90vw',
       height: 'auto',
-      maxHeight: '200v',
+      maxHeight: '200vh',
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '500ms',
       panelClass: 'wide-dialog',
