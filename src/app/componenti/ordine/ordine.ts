@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { MatStepper } from '@angular/material/stepper';
 import { OrderDetails } from '../../dialogs/order-details/order-details';
 import { ComponentType } from '@angular/cdk/portal';
+import { Utilities } from '../../services/utilities';
 
 @Component({
   selector: 'app-ordine',
@@ -38,8 +39,6 @@ export class Ordine implements OnInit {
   metodiPagamento: any = [];
   pagamentoSelected = signal<any>(null);
 
-  readonly dialog = inject(MatDialog);
-
   createForm: FormGroup = new FormGroup({
     nome: new FormControl(null, Validators.required),
     cognome: new FormControl(null, Validators.required),
@@ -59,6 +58,7 @@ export class Ordine implements OnInit {
     private pagamentoServices: PagamentoServices,
     private auth: AuthService,
     private accountService: AccountServices,
+    private util:Utilities,
     private rounting: Router
   ) { }
 
@@ -179,7 +179,7 @@ export class Ordine implements OnInit {
         next: ((r: any) => {
           console.log(r)
           // passagggio del parametri per la funziona generalizzata
-          const dialogRef = this.openDialog(OderAnteprima, {
+          const dialogRef = this.util.openDialog(OderAnteprima, {
             indirizzoSpedizione: this.indirizzoSelected(),
             modalidaPagamento: this.pagamentoSelected(),
             carrello: r.carello
@@ -254,7 +254,7 @@ export class Ordine implements OnInit {
     }).subscribe({
       next: ((r: any) => {
         this.auth.setCarelloSize(0);
-        const dialogRef = this.openDialog(OrderDetails, {
+        const dialogRef = this.util.openDialog(OrderDetails, {
           order: r
         });
         dialogRef.afterClosed()
@@ -272,37 +272,5 @@ export class Ordine implements OnInit {
     })
 
   }
-
-  /**
-   * chiamate generalizzato d'un dialog usando generics di Typescript
-   * T = tipo del componente del dialog
-   * D = tipo dei dati passati (data)
-   * R = tipo del valore ritornato da afterClosed()
-   */
-  private openDialog<T, D = any, R = any>(
-    component: ComponentType<T>,
-    data?: D,
-    config?: MatDialogConfig<D>
-  ): MatDialogRef<T, R> {
-
-    const baseConfig: MatDialogConfig<D> = {
-      width: '1100px',
-      maxWidth: '90vw',
-      height: 'auto',
-      maxHeight: '200vh',
-      enterAnimationDuration: '500ms',
-      exitAnimationDuration: '500ms',
-      panelClass: 'wide-dialog',
-      data
-    };
-
-    return this.dialog.open<T, D, R>(component, {
-      ...baseConfig,
-      ...config   // se vuoi sovrascrivere qualcosa di specifico
-    });
-  }
-  //////
-
-
 
 }

@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProdottoDetaglio } from '../../dialogs/prodotto-detaglio/prodotto-detaglio';
 import { AddRowConfirm } from '../../dialogs/add-row-confirm/add-row-confirm';
 import { Router } from '@angular/router';
+import { PageEvent } from '@angular/material/paginator';
+import { Utilities } from '../../services/utilities';
 
 @Component({
   selector: 'app-home',
@@ -19,13 +21,15 @@ export class Home implements OnInit {
   genere: any = null;
   artist: any = null;
 
-  readonly dialog = inject(MatDialog);
+  pageIndex = 0;
+  pageSize = 6;
 
-  
+ 
   constructor(
     private familySevices: FamigliaServices,
     private artistiServices: ArtistiServices,
     public prodottiServices: ProdottiServices,
+    private util:Utilities,
     private rounting:Router
   ) {
   }
@@ -46,9 +50,24 @@ export class Home implements OnInit {
   get products() {
     return this.prodottiServices.products();
   }
+
+  get pagedProducts(){
+    const all = this.products ?? [];
+    const start = this.pageIndex * this.pageSize;
+    const end = start + this.pageSize;
+    return all.slice(start, end);
+  }
+
   applicaFiltri() {
+    this.pageIndex = 0;
     this.prodottiServices.list(this.nome, this.artist, this.genere);
   }
+
+  onPageChange(event: PageEvent){
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+  }
+
 
   selectProd(prod:any){
    
@@ -61,29 +80,22 @@ export class Home implements OnInit {
   }
 
    private callDialog(prod: any) {
-   
-       const dialogRef = this.dialog.open(ProdottoDetaglio, {
-         width: '1100px',
-         maxWidth: '100vw',
-         height: 'auto',
-         maxHeight: '90v',
-         enterAnimationDuration: '500ms',
-         exitAnimationDuration: '500ms',
-         data: { prodotto: prod },
-         panelClass: 'wide-dialog'   // puoi usare una classe personalizzata per stili extra
-       });
-      
+       const dialogRef = this.util.openDialog(ProdottoDetaglio, {
+         prodotto: prod 
+        });
        dialogRef.afterClosed()
         .subscribe(r => {
           if (r.length > 0){
-            const dialogConfirm = this.dialog.open(AddRowConfirm, {
-              data: { msg: r },
+            const dialogConfirm = this.util.openDialog(AddRowConfirm, 
+              {msg: r },
+              {
               width: '400px',
               maxWidth: '90vw'
-            });
+              }
+            );
             dialogConfirm.afterClosed()
               .subscribe(r => {
-                this.rounting.navigate(['dash/carello']);
+                if (r == 'carrello') this.rounting.navigate(['dash/carello']);
               } )
           }
         })

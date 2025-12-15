@@ -24,6 +24,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatBadgeModule } from '@angular/material/badge';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 
@@ -108,7 +109,8 @@ registerLocaleData(localeIt);
     MatExpansionModule,
     MatBadgeModule,
     MatStepperModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatPaginatorModule
 
 
   ],

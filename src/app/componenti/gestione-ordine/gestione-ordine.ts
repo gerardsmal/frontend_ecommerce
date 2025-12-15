@@ -4,6 +4,7 @@ import { AuthService } from '../../auth/auth-service';
 import { ComponentType } from '@angular/cdk/overlay';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { OrderDetails } from '../../dialogs/order-details/order-details';
+import { Utilities } from '../../services/utilities';
 
 @Component({
   selector: 'app-gestione-ordine',
@@ -18,11 +19,13 @@ export class GestioneOrdine implements OnInit{
   accountId:any;
   ordini = signal<any[]>([]);
 
-  readonly dialog = inject(MatDialog);
+ // readonly dialog = inject(MatDialog);
   constructor(
     private orderServices:OrderServices,
+    private util:Utilities,
     private auth:AuthService
   ){}
+
   ngOnInit(): void {
     this.accountId = this.auth.grant().userId;
     this.orderServices.list(this.accountId)
@@ -50,39 +53,10 @@ export class GestioneOrdine implements OnInit{
 
   onSelectedOrdine(order:any){
     console.log(order)
-    const dialogRef = this.openDialog(OrderDetails, {
+    const dialogRef = this.util.openDialog(OrderDetails, {
               order: order
             });
 
   }
 
-   /**
-   * chiamate generalizzato d'un dialog usando generics di Typescript
-   * T = tipo del componente del dialog
-   * D = tipo dei dati passati (data)
-   * R = tipo del valore ritornato da afterClosed()
-   */
-  private openDialog<T, D = any, R = any>(
-    component: ComponentType<T>,
-    data?: D,
-    config?: MatDialogConfig<D>
-  ): MatDialogRef<T, R> {
-
-    const baseConfig: MatDialogConfig<D> = {
-      width: '1100px',
-      maxWidth: '90vw',
-      height: 'auto',
-      maxHeight: '200vh',
-      enterAnimationDuration: '500ms',
-      exitAnimationDuration: '500ms',
-      panelClass: 'wide-dialog',
-      data
-    };
-
-    return this.dialog.open<T, D, R>(component, {
-      ...baseConfig,
-      ...config   // se vuoi sovrascrivere qualcosa di specifico
-    });
-  }
-  //////
 }

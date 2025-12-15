@@ -60,7 +60,7 @@
 
   <!-- GRID PRODOTTI -->
   <div class="products-grid">
-    @for (prod of products; track prod.id) {
+    @for (prod of pagedProducts; track prod.id) {
     <mat-card class="product-card" >
       <mat-card-header class="header-center">
         <mat-card-title>{{prod.descrizione}}</mat-card-title>
@@ -85,5 +85,13 @@
     </mat-card>
     }
   </div>
+  <mat-paginator
+    [length]="products.length"
+    [pageIndex]="pageIndex"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[6]"
+    showFirstLastButtons
+    (page)="onPageChange($event)">
+  </mat-paginator>
 
 </div>
