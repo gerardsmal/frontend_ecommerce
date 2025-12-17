@@ -34,7 +34,11 @@ export class AccountServices {
     return this.http.delete(this.config.backendURL() + "account/delete/" + id)
       .pipe(tap(() => this.list()));          // use to update signal
   }
-
+  changePwd(body:any){
+    return this.http.put(this.config.backendURL() + "account/changepwd", body)
+    .pipe(tap(() => this.list()))
+  }
+  
   list(nome?: string, cognome?: string, role?: string) {  //? optional
     let params = new HttpParams();
     if (nome) params = params.set('nome', nome);

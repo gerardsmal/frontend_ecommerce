@@ -25,7 +25,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatPaginatorModule} from '@angular/material/paginator';
-
+import {MatMenuModule} from '@angular/material/menu';
 
 
 import { AppRoutingModule } from './app-routing-module';
@@ -56,6 +56,7 @@ import { Ordine } from './componenti/ordine/ordine';
 import { OderAnteprima } from './dialogs/oder-anteprima/oder-anteprima';
 import { OrderDetails } from './dialogs/order-details/order-details';
 import { GestioneOrdine } from './componenti/gestione-ordine/gestione-ordine';
+import { ChangePassword } from './dialogs/change-password/change-password';
 
 registerLocaleData(localeIt);
 
@@ -85,6 +86,7 @@ registerLocaleData(localeIt);
     OderAnteprima,
     OrderDetails,
     GestioneOrdine,
+    ChangePassword,
 
   ],
   imports: [
@@ -110,7 +112,8 @@ registerLocaleData(localeIt);
     MatBadgeModule,
     MatStepperModule,
     MatCheckboxModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatMenuModule
 
 
   ],

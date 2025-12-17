@@ -54,7 +54,8 @@ export class GestioneOrdine implements OnInit{
   onSelectedOrdine(order:any){
     console.log(order)
     const dialogRef = this.util.openDialog(OrderDetails, {
-              order: order
+              order: order,
+              history:true
             });
 
   }

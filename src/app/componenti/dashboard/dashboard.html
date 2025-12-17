@@ -1,7 +1,21 @@
 <mat-toolbar>
-  <button matIconButton class="example-icon" aria-label="Example icon-button with menu icon">
+  <button matIconButton [matMenuTriggerFor]="menu" class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon>menu</mat-icon>
   </button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="changePwd()">
+    <mat-icon>password</mat-icon>
+    <span>Cambio password</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>person</mat-icon>
+    <span>Profile</span>
+  </button>
+</mat-menu>
+
+
+
+
 <img src="logo.png" class="logo">
 
   @if (auth.grant().userName != null){

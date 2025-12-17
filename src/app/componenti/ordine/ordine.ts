@@ -255,7 +255,8 @@ export class Ordine implements OnInit {
       next: ((r: any) => {
         this.auth.setCarelloSize(0);
         const dialogRef = this.util.openDialog(OrderDetails, {
-          order: r
+          order: r,
+          history: false
         });
         dialogRef.afterClosed()
           .subscribe(() => {

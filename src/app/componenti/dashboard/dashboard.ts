@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialog } from '../../dialogs/login-dialog/login-dialog';
 import { AccountServices } from '../../services/account-services';
+import { ChangePassword } from '../../dialogs/change-password/change-password';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,5 +33,12 @@ export class Dashboard {
     console.log('logout')
     this.auth.resetAll();
     this.routing.navigate(['/dash']);
+  }
+  changePwd(){
+     this.dialog.open(ChangePassword, {
+      width: '400px',
+      disableClose: false,
+      data: {}
+    });
   }
 }
