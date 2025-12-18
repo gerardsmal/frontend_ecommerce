@@ -57,6 +57,7 @@ import { OderAnteprima } from './dialogs/oder-anteprima/oder-anteprima';
 import { OrderDetails } from './dialogs/order-details/order-details';
 import { GestioneOrdine } from './componenti/gestione-ordine/gestione-ordine';
 import { ChangePassword } from './dialogs/change-password/change-password';
+import { EmailValidation } from './componenti/email-validation/email-validation';
 
 registerLocaleData(localeIt);
 
@@ -87,6 +88,7 @@ registerLocaleData(localeIt);
     OrderDetails,
     GestioneOrdine,
     ChangePassword,
+    EmailValidation,
 
   ],
   imports: [

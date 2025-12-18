@@ -5,6 +5,7 @@ import { AuthService } from '../../auth/auth-service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegistrazioneDialog } from '../registrazione-dialog/registrazione-dialog';
+import { Utilities } from '../../services/utilities';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class LoginDialog {
     private account: AccountServices,
     private auth: AuthService,
     private routing: Router,
+    private util: Utilities,
     private dialogRef: MatDialogRef<LoginDialog>
   ) { }
 
@@ -31,7 +33,7 @@ export class LoginDialog {
     }).subscribe({
       next: (resp: any) => {
         this.msg.set("");
-        this.auth.setAutentificated(resp.userID, resp.userName , resp.carrelloSize , resp.orderSize);
+        this.auth.setAutentificated(resp.userID, resp.userName, resp.carrelloSize, resp.orderSize);
         if (resp.role == 'ADMIN') this.auth.setAdmin();
         if (resp.role == 'USER') this.auth.setUser();
 
@@ -49,17 +51,17 @@ export class LoginDialog {
 
 
   registrazione() {
-    const enterAnimationDuration: string = '500ms';
-    const exitAnimationDuration: string = '500ms';
-
-    const dialogRef = this.dialog.open(RegistrazioneDialog, {
-      width: '90vw',              // 👈 90% della larghezza della finestra
-      maxWidth: '1200px',   
-      height : 'auto',     
-      enterAnimationDuration,
-      exitAnimationDuration,
-      panelClass: 'wide-dialog'
-    });
+    this.util.openDialog(RegistrazioneDialog,
+      {
+        account: null,
+        mode: "C"
+      }, 
+      {
+        width: '90vw',
+        maxWidth: '1200px',
+        height: 'auto',
+      }
+    );
   }
 
 }

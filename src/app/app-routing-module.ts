@@ -12,6 +12,7 @@ import { Prodotti } from './componenti/prodotti/prodotti';
 import { Notfound } from './notfound/notfound';
 import { Ordine } from './componenti/ordine/ordine';
 import { GestioneOrdine } from './componenti/gestione-ordine/gestione-ordine';
+import { EmailValidation } from './componenti/email-validation/email-validation';
 
 const routes: Routes = [
   {path:'', redirectTo:'dash', pathMatch:'full'},
@@ -26,6 +27,7 @@ const routes: Routes = [
     {path:'artisti', component:Artisti, canActivate:[ authGuard, authAdminGuard]},
     {path:'prodotti', component:Prodotti, canActivate:[ authGuard, authAdminGuard]}
   ]},
+  {path:'validation/:id', component:EmailValidation},
   { path: '404', component: Notfound},
   { path: '**', redirectTo:'404'}  
 ];

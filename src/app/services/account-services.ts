@@ -38,6 +38,10 @@ export class AccountServices {
     return this.http.put(this.config.backendURL() + "account/changepwd", body)
     .pipe(tap(() => this.list()))
   }
+  validateEmail(id:any){
+    let params = new HttpParams().set('id', id);
+    return this.http.get(this.config.backendURL() + "account/emailValidation", { params})
+  }
   
   list(nome?: string, cognome?: string, role?: string) {  //? optional
     let params = new HttpParams();

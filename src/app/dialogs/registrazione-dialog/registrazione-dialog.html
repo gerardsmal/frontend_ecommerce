@@ -5,7 +5,11 @@
 
     <mat-card>
         <mat-card-header class="header-center">
+            @if (mod == 'C') {
             <mat-card-title>Creazione nuovo utente</mat-card-title>
+            } @else {
+            <mat-card-title>Profile di {{account()?.nome}} {{account().cognome}}</mat-card-title>
+            }
         </mat-card-header>
         <mat-card-content>
             <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid">
@@ -56,6 +60,7 @@
                     <input matInput type="text" name="userName" formControlName="userName" required>
                 </mat-form-field>
 
+                @if (mod == 'C'){
                 <mat-form-field appearance="fill">
                     <mat-label>Password</mat-label>
                     <input matInput type="password" name="password" formControlName="password">
@@ -65,7 +70,7 @@
                     <mat-label>Retype Password</mat-label>
                     <input matInput type="password" name="passwordControl" formControlName="passwordControl">
                 </mat-form-field>
-
+                }
                 <div class="msg-error">
                     <span style="color:red">{{ msg() }}</span>
                 </div>
@@ -73,7 +78,7 @@
                     <button mat-raised-button color="primary" type="submit" [disabled]="!updateForm.valid"
                         matTooltip="Salvare le modifiche">
                         Crea nuovo utente</button>
-               
+
                 </div>
             </form>
         </mat-card-content>
