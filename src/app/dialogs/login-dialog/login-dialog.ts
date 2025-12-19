@@ -33,11 +33,13 @@ export class LoginDialog {
     }).subscribe({
       next: (resp: any) => {
         this.msg.set("");
-        this.auth.setAutentificated(resp.userID, resp.userName, resp.carrelloSize, resp.orderSize);
+        console.log(resp)
+        this.auth.setAutentificated(resp.userID, resp.userName, resp.carrelloSize, resp.orderSize, resp.activate ? 'Y' : 'N');
         if (resp.role == 'ADMIN') this.auth.setAdmin();
         if (resp.role == 'USER') this.auth.setUser();
 
-        console.log('[LoginDialog] dopo login, isAutentificated =', this.auth.isAutentificated());
+        console.log('[LoginDialog] dopo login, isAutentificated =', this.auth.isAutentificated() );
+        console.log('[LoginDialog] dopo login, isValidate =', this.auth.grant().isValidate );
 
         this.dialogRef.close(true);
         this.routing.navigate(['/dash']);

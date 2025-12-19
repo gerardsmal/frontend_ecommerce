@@ -8,7 +8,7 @@
             @if (mod == 'C') {
             <mat-card-title>Creazione nuovo utente</mat-card-title>
             } @else {
-            <mat-card-title>Profile di {{account()?.nome}} {{account().cognome}}</mat-card-title>
+            <mat-card-title>Profile di {{account()?.nome}} {{account()?.cognome}}</mat-card-title>
             }
         </mat-card-header>
         <mat-card-content>
@@ -75,9 +75,15 @@
                     <span style="color:red">{{ msg() }}</span>
                 </div>
                 <div class="button-group">
+                    @if (mod == 'C'){
                     <button mat-raised-button color="primary" type="submit" [disabled]="!updateForm.valid"
                         matTooltip="Salvare le modifiche">
                         Crea nuovo utente</button>
+                    } @else {
+                         <button mat-raised-button color="primary" type="submit" 
+                        matTooltip="Salvare le modifiche">
+                        Aggiorna il profile</button>
+                    }    
 
                 </div>
             </form>

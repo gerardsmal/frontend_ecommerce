@@ -64,8 +64,8 @@
       Prezzo totale: {{ order?.prezzoTotale | currency:'EUR' }}
     </div>
      <div class="summary-buttons">
-    @if (history()){
-      <button mat-stroked-button color="primary"  (click)="invioMail()"   type="button">Inviarmi l'ordine in mail</button>
+    @if (history()){     
+      <button mat-stroked-button color="primary"  (click)="invioMail()"  [disabled]="auth.grant().isValidate == 'N'"    type="button">Inviarmi l'ordine in mail</button>
     } @else {
       <span>un mail é stato inviato</span>
     }

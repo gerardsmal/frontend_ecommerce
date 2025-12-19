@@ -1,6 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountServices } from '../../services/account-services';
+import { AuthService } from '../../auth/auth-service';
 
 @Component({
   selector: 'app-email-validation',
@@ -15,7 +16,9 @@ export class EmailValidation implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private routing: Router,
-    private accountServices: AccountServices) {
+    private accountServices: AccountServices,
+    private auth:AuthService
+  ) {
 
   }
 
@@ -32,6 +35,7 @@ export class EmailValidation implements OnInit {
       .subscribe({
         next: ((r: any) => {
           console.log(r);
+          this.auth.grant().isValidate = 'Y'
           this.routing.navigate(['/dash']);
         }),
         error: ((r: any) => {

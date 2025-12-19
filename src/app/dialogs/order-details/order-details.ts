@@ -1,6 +1,7 @@
 import { Component, Inject, signal } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { OrderServices } from '../../services/order-services';
+import { AuthService } from '../../auth/auth-service';
 
 @Component({
   selector: 'app-order-details',
@@ -14,7 +15,8 @@ export class OrderDetails {
    constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<OrderDetails>,
-    private orderServices:OrderServices
+    private orderServices:OrderServices,
+    public auth:AuthService
   ) {
     if (data) {
       this.order = data.order;

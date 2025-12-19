@@ -42,7 +42,13 @@ export class AccountServices {
     let params = new HttpParams().set('id', id);
     return this.http.get(this.config.backendURL() + "account/emailValidation", { params})
   }
-  
+ 
+   resendEmailValidation(id:any){
+    let params = new HttpParams().set('id', id);
+    return this.http.get(this.config.backendURL() + "account/sendValidation", { params})
+  }
+ 
+
   list(nome?: string, cognome?: string, role?: string) {  //? optional
     let params = new HttpParams();
     if (nome) params = params.set('nome', nome);

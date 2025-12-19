@@ -1,28 +1,39 @@
 <mat-toolbar>
+  @if (auth.grant().isLogged){
   <button matIconButton [matMenuTriggerFor]="menu" class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon>menu</mat-icon>
   </button>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="changePwd()">
-    <mat-icon>password</mat-icon>
-    <span>Cambio password</span>
-  </button>
-  <button mat-menu-item>
-    <mat-icon>person</mat-icon>
-    <span>Profile</span>
-  </button>
-</mat-menu>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="changePwd()">
+      <mat-icon>password</mat-icon>
+      <span>Cambio password</span>
+    </button>
+    <button mat-menu-item (click)="profile()">
+      <mat-icon>person</mat-icon>
+      <span>Profile</span>
+    </button>
+  </mat-menu>
+  }
 
 
 
-
-<img src="logo.png" class="logo">
+  <img src="logo.png" class="logo">
 
   @if (auth.grant().userName != null){
   <div style="flex: 1; text-align: center;">
     <span>Ciao {{auth.grant().userName}}</span>
+    @if (auth.grant().isValidate == 'N'){
+    <button style="margin-left:18px" (click)="login()"
+      matTooltip="Tutte funzione utilizzando la mail sono disbilitate. Clicca per loggarti di nuovo dopo averla validata">La tua mail non é validate</button>
+    
+     <button style="margin-left:12px" (click)="resendMail()"
+      matTooltip="Invio di nuovo tramite mail la validazione dell'email">Send validation
+    </button>
+    }
+
   </div>
   }
+
 
 
   <span class="example-spacer"></span>
@@ -33,8 +44,7 @@
 
   @if ((auth.grant().orderSize ?? 0) > 0){
   <button mat-icon-button class="example-icon" aria-label="Ordine" matTooltip="Elenco ordini effetuati"
-    matBadge="{{auth.grant().orderSize}}"
-    [routerLink]="['/dash','gestioneOrdine']">
+    matBadge="{{auth.grant().orderSize}}" [routerLink]="['/dash','gestioneOrdine']">
     <mat-icon>
       <img src="order.png">
     </mat-icon>

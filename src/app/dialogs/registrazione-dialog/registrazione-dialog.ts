@@ -9,7 +9,7 @@ import { AccountServices } from '../../services/account-services';
   templateUrl: './registrazione-dialog.html',
   styleUrl: './registrazione-dialog.css',
 })
-export class RegistrazioneDialog implements OnInit{
+export class RegistrazioneDialog implements OnInit {
   account = signal<any>(null);
   mod: any;
   updateForm: FormGroup = new FormGroup({
@@ -34,36 +34,78 @@ export class RegistrazioneDialog implements OnInit{
     private accoutServices: AccountServices,
     @Inject(MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<RegistrazioneDialog>
-  ) { 
-  if (data) {
+  ) {
+    if (data) {
       this.account.set(data.account);
-      this.mod = data.mode; 
-    
+      this.mod = data.mode;
+
     }
-    
+
   }
   ngOnInit(): void {
-    if (this.mod == "U"){
+    if (this.mod == "U") {
       this.updateForm.patchValue({
         nome: this.account().nome,
-        cognome : this.account().cognome,
+        cognome: this.account().cognome,
         email: this.account().email,
         sesso: this.account().sesso ? 'M' : 'F',
-        telefono : this.account().telefono,
-        via : this.account().via,
-        comune : this.account().commune,
-        cap : this.account().cap
+        telefono: this.account().telefono,
+        via: this.account().via,
+        comune: this.account().commune,
+        cap: this.account().cap,
+        userName: this.account().userName
       })
     }
   }
 
-  onSubmit(){
+  onSubmit() {
     if (this.mod == 'C') this.onSubmitCreate();
     if (this.mod == 'U') this.onSubmitUpdate();
   }
 
-
   onSubmitUpdate() {
+    this.msg.set('');
+    const updateBody: any = { id: this.account().id };
+
+    if (this.updateForm.controls['nome'].dirty)
+      updateBody.nome = this.updateForm.value.nome;
+
+    if (this.updateForm.controls['cognome'].dirty)
+      updateBody.cognome = this.updateForm.value.cognome;
+
+    if (this.updateForm.controls['email'].dirty)
+      updateBody.email = this.updateForm.value.email;
+
+    if (this.updateForm.controls['sesso'].dirty)
+      updateBody.sesso = this.updateForm.value.sesso == 'M' ? true : false;
+
+    if (this.updateForm.controls['telefono'].dirty)
+      updateBody.telefono = this.updateForm.value.telefono;
+
+    if (this.updateForm.controls['via'].dirty)
+      updateBody.via = this.updateForm.value.via;
+
+    if (this.updateForm.controls['comune'].dirty)
+      updateBody.commune = this.updateForm.value.comune;
+
+    if (this.updateForm.controls['cap'].dirty)
+      updateBody.cap = this.updateForm.value.cap;
+
+    if (this.updateForm.controls['userName'].dirty)
+      updateBody.userName = this.updateForm.value.userName;
+
+    console.log(updateBody);
+
+    this.accoutServices.update(updateBody)
+      .subscribe({
+        next: ((resp: any) => {
+          console.log(resp);
+          this.dialogRef.close();
+        }),
+        error: ((resp: any) => {
+          this.msg.set(resp.error.msg);
+        })
+      })
   }
 
 

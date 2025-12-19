@@ -5,6 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginDialog } from '../../dialogs/login-dialog/login-dialog';
 import { AccountServices } from '../../services/account-services';
 import { ChangePassword } from '../../dialogs/change-password/change-password';
+import { Utilities } from '../../services/utilities';
+import { RegistrazioneDialog } from '../../dialogs/registrazione-dialog/registrazione-dialog';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,11 +18,12 @@ export class Dashboard {
 
   readonly dialog = inject(MatDialog);
   constructor(public auth: AuthService,
-    private account:AccountServices,
+    private accountServices: AccountServices,
+    private util: Utilities,
     private routing: Router
   ) { }
 
- 
+
   login() {
     this.dialog.open(LoginDialog, {
       width: '400px',
@@ -34,11 +37,41 @@ export class Dashboard {
     this.auth.resetAll();
     this.routing.navigate(['/dash']);
   }
-  changePwd(){
-     this.dialog.open(ChangePassword, {
+  changePwd() {
+    this.dialog.open(ChangePassword, {
       width: '400px',
       disableClose: false,
       data: {}
     });
+  }
+
+  profile() {
+    this.accountServices.getAccount(this.auth.grant().userId)
+      .subscribe({
+        next: ((r: any) => {
+          this.util.openDialog(RegistrazioneDialog,
+            {
+              account: r,
+              mode: "U"
+            },
+            {
+              width: '90vw',
+              maxWidth: '1200px',
+              height: 'auto',
+            }
+          );
+        }),
+        error: ((r: any) => {
+          console.log("error getAccount:" + r.error.msg);
+        })
+      })
+  }
+
+  resendMail(){
+    this.accountServices.resendEmailValidation(this.auth.grant().userId)
+      .subscribe((r:any) => {
+        console.log("mail inviato:" + r.msg);
+      })
+
   }
 }

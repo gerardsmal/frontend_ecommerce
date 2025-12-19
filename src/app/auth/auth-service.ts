@@ -15,6 +15,7 @@ export class AuthService {
     carelloSize: null as string | null,
     userName: null as string | null,
     orderSize: null as number | null,
+    isValidate: null as string | null
   })
 
   constructor(@Inject(PLATFORM_ID) private platformId: object) {
@@ -27,6 +28,7 @@ export class AuthService {
       const carelloSize = localStorage.getItem("carelloSize");
       const orderSizeStr = localStorage.getItem("orderSize");
       const orderSize = Number(localStorage.getItem("orderSize") ?? 0);
+      const isValidate = localStorage.getItem("isValidate") ;
 
 
       this.grant.set({
@@ -35,20 +37,22 @@ export class AuthService {
         userId,
         carelloSize,
         userName,
-        orderSize
+        orderSize,
+        isValidate   
       });
       console.log('[AuthService] constructor isLogged', this.grant().isLogged);
     }
   }
 
 
-  setAutentificated(userId: any, userName: any, carelloSize: any, orderSizeStr: any) {
+  setAutentificated(userId: any, userName: any, carelloSize: any, orderSizeStr: any, isValidate:any) {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem("isLogged", "1");
       localStorage.setItem("userId", userId);
       localStorage.setItem("userName", userName);
       localStorage.setItem("carelloSize", carelloSize);
       localStorage.setItem("orderSize", orderSizeStr);
+      localStorage.setItem("isValidate", isValidate);
 
       const orderSize = Number(localStorage.getItem("orderSize") ?? 0);
      
@@ -58,7 +62,8 @@ export class AuthService {
         userId,
         carelloSize,
         userName,
-        orderSize
+        orderSize,
+        isValidate
       });
     }
     return EMPTY;
@@ -119,13 +124,15 @@ export class AuthService {
       localStorage.removeItem("userName");
       localStorage.removeItem("carelloSize");
       localStorage.removeItem("orderSize");
+      localStorage.removeItem("isValidate");
       this.grant.set({
         isAdmin: false,
         isLogged: false,
         userId: null,
         carelloSize: null,
         userName: null,
-        orderSize: null
+        orderSize: null,
+        isValidate: null
       })
     }
     return EMPTY;
