@@ -48,3 +48,9 @@ mat-form-field {
   background-color: #b71c1c;
   color: white;
 }
+.dialog-close-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #555;
+}

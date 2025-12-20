@@ -4,6 +4,7 @@ import { ProdottiServices } from '../../services/prodotti-services';
 import { ArtistiServices } from '../../services/artisti-services';
 import { MatDialog } from '@angular/material/dialog';
 import { ProdottiUpdate } from '../../dialogs/prodotti-update/prodotti-update';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-prodotti',
@@ -15,6 +16,9 @@ export class Prodotti implements OnInit {
   nome: any = null;
   genere: any = null;
   artist: any = null;
+
+  pageIndex = 0;
+  pageSize = 8;
 
   constructor(private familySevices: FamigliaServices,
     private artistiServices: ArtistiServices,
@@ -39,10 +43,23 @@ export class Prodotti implements OnInit {
     return this.prodottiServices.products();
   }
 
+  get pagedProducts() {
+    const all = this.products ?? [];
+    const start = this.pageIndex * this.pageSize;
+    const end = start + this.pageSize;
+    return all.slice(start, end);
+  }
 
   search() {
+    this.pageIndex = 0;
     this.prodottiServices.list(this.nome, this.artist, this.genere);
   }
+
+  onPageChange(event: PageEvent){
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+  }
+
 
   create() {
     this.callDialog(null, 'C');

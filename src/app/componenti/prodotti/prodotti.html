@@ -67,20 +67,20 @@
                             <th>Nome</th>
                             <th>Artisto</th>
                             <th>Genere</th>
-                            
+
                         </tr>
                     </thead>
                     <tbody>
 
 
-                        @for (prod of products; track prod.id) {
+                        @for (prod of pagedProducts; track prod.id) {
                         <tr (click)="onSelectedProduct(prod)" class="clickable-row">
                             <td>
-                            @if (prod.image) {
-                            <img [src]="prod.image" style="max-width: 80px;">
-                            } @else {
-                            <img src="no-image.jpg" style="max-width: 80px;">
-                            }
+                                @if (prod.image) {
+                                <img [src]="prod.image" style="max-width: 80px;">
+                                } @else {
+                                <img src="no-image.png" style="max-width: 80px;">
+                                }
                             </td>
                             <td>{{prod.descrizione}}</td>
                             <td>{{prod.artista.nome}}</td>
@@ -97,6 +97,12 @@
 
             </div>
 
+            <mat-paginator [length]="products.length" 
+                [pageIndex]="pageIndex" 
+                [pageSize]="pageSize"
+                [pageSizeOptions]="[8]" 
+                showFirstLastButtons (page)="onPageChange($event)">
+            </mat-paginator>
 
 
         </mat-card-content>

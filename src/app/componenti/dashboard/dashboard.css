@@ -9,6 +9,21 @@
 .side-menu {
   width: 200px; 
 }
+.user-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.welcome {
+  font-weight: 500;
+}
+
+button mat-icon {
+  margin-right: 6px;
+}
+
 .main-content {
   padding: 20px;
   background: white;
@@ -29,5 +44,5 @@
   flex: 1 1 auto;
 }
 .logo {
-    width: 8%;
+    width: 5%;
 }

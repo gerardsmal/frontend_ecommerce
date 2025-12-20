@@ -45,7 +45,7 @@
         @for (riga of order?.riga ?? []; track riga.id) {
           <tr class="cart-row">
             <td class="cart-cell image-cell">
-              <img [src]="riga.image || 'no-image.jpg'" />
+              <img [src]="riga.image || 'no-image.png'" />
             </td>
             <td class="cart-cell">{{ riga.productName }}</td>
             <td class="cart-cell">{{ riga.artist }}</td>

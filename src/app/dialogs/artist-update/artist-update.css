@@ -91,3 +91,15 @@ th, td {
   overflow: visible !important;  /* rimuove scrollbar */
   padding: 20px;                 /* spazio interno */
 }
+
+.dialog-close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: #555;
+  z-index: 10;       /* 👈 importante per stare sopra alla mat-card */
+}
+
+.dialog-close-btn:hover {
+  color: #000;
+}

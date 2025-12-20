@@ -48,7 +48,7 @@ export class RegistrazioneDialog implements OnInit {
         nome: this.account().nome,
         cognome: this.account().cognome,
         email: this.account().email,
-        sesso: this.account().sesso ? 'M' : 'F',
+        sesso: this.account().sesso,
         telefono: this.account().telefono,
         via: this.account().via,
         comune: this.account().commune,

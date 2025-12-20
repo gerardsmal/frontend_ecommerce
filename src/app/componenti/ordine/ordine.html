@@ -31,7 +31,7 @@
     <ng-template matStepLabel>Dati di spedizione</ng-template>
     <div class="select-row">
 
-      <mat-form-field appearance="fill" class="indirizzo-field">
+      <mat-form-field appearance="fill" class="indirizzo-field mt-2">
         <mat-label>Indirizzi</mat-label>
         <mat-select name="indirizzo" [(ngModel)]="indirizzo" (selectionChange)="selectIdirizzo(); stepper.next()">
           @for (ind of listaSpedizione(); track ind.id) {

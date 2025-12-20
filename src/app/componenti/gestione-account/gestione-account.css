@@ -1,19 +1,18 @@
 .example-card {
   width: 100%;
+  max-width: 1200px;         /* 👈 scegli tu: 1000 / 1200 / 1400 */
 }
 
 .example-card-footer {
   padding: 16px;
 }
-.container{
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 20px;
-    padding: 0;
-    margin: 0;
-    width: 100%;
+
+.container {
+  display: flex;
+  justify-content: center;   /* 👈 centra orizzontalmente */
+  width: 100%;
 }
+
 
 .search-row{
     display: flex;

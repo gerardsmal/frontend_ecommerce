@@ -19,20 +19,34 @@
 
   <img src="logo.png" class="logo">
 
-  @if (auth.grant().userName != null){
-  <div style="flex: 1; text-align: center;">
-    <span>Ciao {{auth.grant().userName}}</span>
-    @if (auth.grant().isValidate == 'N'){
-    <button style="margin-left:18px" (click)="login()"
-      matTooltip="Tutte funzione utilizzando la mail sono disbilitate. Clicca per loggarti di nuovo dopo averla validata">La tua mail non é validate</button>
-    
-     <button style="margin-left:12px" (click)="resendMail()"
-      matTooltip="Invio di nuovo tramite mail la validazione dell'email">Send validation
-    </button>
-    }
+  @if (auth.grant().userName != null) {
+  <div class="user-info">
+    <span class="welcome">Ciao {{ auth.grant().userName }}</span>
 
+    @if (auth.grant().isValidate == 'N') {
+      <button
+        mat-stroked-button
+        color="warn"
+        (click)="login()"
+        matTooltip="Tutte le funzioni che usano la mail sono disabilitate. Accedi di nuovo dopo averla validata">
+        <mat-icon>warning</mat-icon>
+        Mail non validata
+      </button>
+
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="resendMail()"
+        matTooltip="Invia di nuovo la mail di validazione">
+        <mat-icon>mail</mat-icon>
+        Invia validazione
+      </button>
+        @if (loading()){
+         <mat-spinner diameter="30"></mat-spinner>
+        }
+    }
   </div>
-  }
+}
 
 
 

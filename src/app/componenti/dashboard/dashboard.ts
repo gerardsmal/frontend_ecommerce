@@ -15,7 +15,7 @@ import { RegistrazioneDialog } from '../../dialogs/registrazione-dialog/registra
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
-
+  loading = signal(false)
   readonly dialog = inject(MatDialog);
   constructor(public auth: AuthService,
     private accountServices: AccountServices,
@@ -68,8 +68,10 @@ export class Dashboard {
   }
 
   resendMail(){
+    this.loading.set(true);
     this.accountServices.resendEmailValidation(this.auth.grant().userId)
       .subscribe((r:any) => {
+        this.loading.set(false);
         console.log("mail inviato:" + r.msg);
       })
 

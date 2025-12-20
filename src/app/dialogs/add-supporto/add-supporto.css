@@ -49,3 +49,14 @@ mat-form-field {
   color: white;
 }
 
+.dialog-close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: #555;
+  z-index: 10;
+}
+
+.dialog-close-btn:hover {
+  color: #000;
+}

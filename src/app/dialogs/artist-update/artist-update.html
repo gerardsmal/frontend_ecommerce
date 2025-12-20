@@ -3,6 +3,9 @@
 } @else {
 <h2 mat-dialog-title>Creazione nuovo artisto</h2>
 }
+<button mat-icon-button mat-dialog-close class="dialog-close-btn">
+    <mat-icon>close</mat-icon>
+</button>
 
 <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid form-container">
   <mat-form-field appearance="fill">
@@ -65,9 +68,5 @@
       cancellazione
     </button>
     }
-
-    <button mat-raised-button mat-dialog-close color="primary" matTooltip="chiudere la finestra">
-      Chiudere
-    </button>
   </div>
 </form>
