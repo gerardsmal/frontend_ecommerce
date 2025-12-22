@@ -18,10 +18,12 @@
 
 .welcome {
   font-weight: 500;
+  margin-left: 15px;
 }
 
 button mat-icon {
   margin-right: 6px;
+  
 }
 
 .main-content {
@@ -45,4 +47,16 @@ button mat-icon {
 }
 .logo {
     width: 5%;
+}
+
+.chatbot-fab {
+  width: 50px;
+  height: 50px;
+  min-width: 50px;      /* 👈 importante per mat-fab */
+}
+
+.chatbot-img {
+  width: 45px;          /* 👈 dimensione icona */
+  height: 45px;
+  object-fit: contain; /* 👈 evita deformazioni */
 }

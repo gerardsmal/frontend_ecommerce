@@ -19,6 +19,10 @@
 
   <img src="logo.png" class="logo">
 
+  <button mat-fab class="chatbot-fab">
+  <img src="chatbot.png" class="chatbot-img" />
+</button>
+
   @if (auth.grant().userName != null) {
   <div class="user-info">
     <span class="welcome">Ciao {{ auth.grant().userName }}</span>

@@ -58,6 +58,7 @@ import { OrderDetails } from './dialogs/order-details/order-details';
 import { GestioneOrdine } from './componenti/gestione-ordine/gestione-ordine';
 import { ChangePassword } from './dialogs/change-password/change-password';
 import { EmailValidation } from './componenti/email-validation/email-validation';
+import { ChatBot } from './dialogs/chat-bot/chat-bot';
 
 registerLocaleData(localeIt);
 
@@ -89,6 +90,7 @@ registerLocaleData(localeIt);
     GestioneOrdine,
     ChangePassword,
     EmailValidation,
+    ChatBot,
 
   ],
   imports: [
